@@ -89,7 +89,7 @@ O Diagrama Entidade-Relacionamento (DER) representa as 18 entidades do sistema e
 
 `Aluno`, `Funcionario`, `Modalidade`, `Turma`, `Aluno_Turma`, `Avaliacao_Fisica`, `Checkin`, `Maquina`, `Exercicio`, `Ficha_Treino`, `Ficha_Exercicio`, `Horario_Turma`, `Produto`, `Venda_Produto`, `Item_Venda`, `Plano`, `Matricula`, `Pagamento`.
 
-📎 O arquivo do DER está disponível em [`Foto_DER.jpeg`](.Foto_DER.jpeg) 
+📎 O arquivo do DER está disponível em [`Foto_DER.jpeg`](./main/Foto_DER.jpeg) 
 
 ### Relacionamentos entre entidades
 
