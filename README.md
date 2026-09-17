@@ -132,10 +132,10 @@ Entidades documentadas: `Aluno`, `Funcionario`, `Modalidade`, `Turma`, `Aluno_Tu
 
 Os fluxogramas dos principais processos do sistema (matrícula de aluno, check-in, venda de produto e elaboração de ficha de treino) estão disponíveis em:
 
-📎 [`/docs/Fluxograma_Matricula.jpeg`](./docs/Foto_2.jpeg)
-📎 [`/docs/Fluxograma_Checkin.jpeg`](./docs/Foto_1.jpeg)
-📎 [`/docs/Fluxograma_Venda.jpeg`](./docs/Foto_3.jpeg)
-📎 [`/docs/Fluxograma_Ficha_Treino.jpeg`](./docs/Foto_4.jpeg)
+📎 [`/docs/Fluxograma_Matricula.jpeg`](./Foto_2.jpeg)
+📎 [`/docs/Fluxograma_Checkin.jpeg`](./Foto_1.jpeg)
+📎 [`/docs/Fluxograma_Venda.jpeg`](./Foto_3.jpeg)
+📎 [`/docs/Fluxograma_Ficha_Treino.jpeg`](./Foto_4.jpeg)
 
 
 ## 8. Justificativa Técnica das Decisões de Modelagem
