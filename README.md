@@ -124,7 +124,7 @@ O Diagrama Entidade-Relacionamento (DER) representa as 18 entidades do sistema e
 
 O dicionário de dados completo, com todos os atributos de cada entidade (tipo de variável, descrição, valores permitidos, se admite nulo e anotações), foi elaborado no molde de **Costa (2021)** e está disponível em:
 
-📎 [`/docs/Dicionario_de_Dados_Academia.html`](./docs/Dicionario_de_Dados_Academia.pdf)
+📎 [`/docs/Dicionario_de_Dados_Academia.html`](./Dicionario_de_Dados_Academia.pdf)
 
 Entidades documentadas: `Aluno`, `Funcionario`, `Modalidade`, `Turma`, `Aluno_Turma`, `Avaliacao_Fisica`, `Checkin`, `Maquina`, `Exercicio`, `Ficha_Treino`, `Ficha_Exercicio`, `Horario_Turma`, `Produto`, `Venda_Produto`, `Item_Venda`, `Plano`, `Matricula`, `Pagamento`.
 
