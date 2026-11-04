@@ -9,7 +9,7 @@
 | Pedro Macario | 47291931 | pedromacario567-design |
 | Vitor Ribeiro de Morais | 46865900 | Vitor-Ribeiro-15 |
 
-**Artefatos:** [levantamento](levantamento/levantamento.md) • [dicionário de dados](dicionario_de_dados.md) • [script SQL completo](docs/script.sql) • [DER conceitual](docs/der_conceitual.png) • [modelo lógico](docs/modelo_logico.png) • [roteiro da apresentação](roteiro_pitch.md) • [evidências](evidencias/)
+**Artefatos:** [levantamento](levantamento/levantamento.md) • [dicionário de dados](dicionario_de_dados.md) • [script SQL completo](docs/script.sql) • [DER conceitual](/Foto_BR.modelo.jpeg) • [modelo lógico](docs/modelo_logico.png) • [roteiro da apresentação](roteiro_pitch.md) • [evidências](evidencias/)
 
 ---
 
