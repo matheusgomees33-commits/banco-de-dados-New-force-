@@ -3,7 +3,7 @@
 
 | Nome completo do aluno | RGM | Usuário do GitHub |
 | :---- | :---- | :---- |
-| Cauan Santos Patti  | 44889046 | Caua Santos Patti
+| Cauan Santos Patti  | 44889046 | Cawa44
 | Matheus Gomes Laurentino | 47250895 | matheusgomees33
 | Nathan Martins Custodio | 46998519 | martinscustodionathan-ai
 | Pedro Macario | 47291931 | pedromacario567-design |
