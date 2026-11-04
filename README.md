@@ -45,7 +45,7 @@ Esta entrega segue o **Caso B**: a organização da Entrega 1 era uma academia g
 - **Escopo do sistema:** o banco reúne **todos os dados da academia**, e não só os dos problemas: alunos, planos, contratos, cobrança, acesso, avaliações, treinos, aulas, funcionários, escalas, vendas e compras de suplementos, equipamentos e manutenção.
 - **Justificativa da escolha:** o grupo teve acesso direto à gerente, que concedeu três entrevistas no local. A academia reúne processos variados em porte adequado para esta etapa. **Vínculo:** nenhum integrante trabalha na academia nem tem vínculo familiar com os responsáveis.
 - **Evidências** (arquivos JPG ou PNG na pasta [`evidencias/`](evidencias/)): perfil da academia no Google (Google Maps), fachada, interior da academia e foto com a gerente, além do site (https://www.academianewforce.com.br/) e do Instagram (@academianewforce). Endereço: R. João de Siqueira Afonso, 608 - Lajeado, São Paulo - SP, 08452-105.
-- **Responsável pela organização:** Renata Alves Pinheiro, gerente. Telefone: (11) 9888-413.
+- **Responsável pela organização:** Renata Alves Pinheiro, gerente. Telefone: (11) 98884-2413.
 
 #### Relato da entrevista
 
