@@ -386,7 +386,7 @@ Regras que o banco não impõe sozinho (capacidade de 30, 20 minutos, 3 meses de
 
 ## 2. Modelo Lógico Relacional
 
-Diagrama: [`docs/modelo_logico.png`](docs/modelo_logico.png). **Software em que foi criado:** [PREENCHER: informe o software realmente usado, por exemplo "brModelo"]. O diagrama mostra as 41 tabelas, as colunas com tipo, `PK`, `FK` e as cardinalidades `(mín, máx)` já convertidas. As restrições `NOT NULL`, `UNIQUE`, `CHECK` e `DEFAULT` estão no [dicionário de dados](dicionario_de_dados.md) e no script SQL.
+Diagrama: [`docs/modelo_logico.png`](Foto_BR.modelo.jpeg). **Software em que foi criado:** [PREENCHER: informe o software realmente usado, por exemplo "brModelo"]. O diagrama mostra as 41 tabelas, as colunas com tipo, `PK`, `FK` e as cardinalidades `(mín, máx)` já convertidas. As restrições `NOT NULL`, `UNIQUE`, `CHECK` e `DEFAULT` estão no [dicionário de dados](dicionario_de_dados.md) e no script SQL.
 
 ## 3. Script SQL Completo
 
