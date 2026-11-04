@@ -5,11 +5,11 @@
 
 | Nome completo do aluno | RGM | Usuário do GitHub |
 | :---- | :---- | :---- |
-| Cauan Santos Patti | 44889046 | [PREENCHER] |
-| Matheus Gomes Laurentino | 47250895 | [PREENCHER] |
-| Nathan Martins Custodio | 46998519 | [PREENCHER] |
-| Pedro Macario | 47291931 | [PREENCHER] |
-| Vitor Ribeiro de Morais | 46865900 | [PREENCHER] |
+| Cauan Santos Patti | 44889046 | [Caua Santos Patti] |
+| Matheus Gomes Laurentino | 47250895 | [matheusgomees33] |
+| Nathan Martins Custodio | 46998519 | [martinscustodionathan-ai] |
+| Pedro Macario | 47291931 | [pedromacario567-design] |
+| Vitor Ribeiro de Morais | 46865900 | [Vitor-Ribeiro-15] |
 
 **Artefatos:** [levantamento](levantamento/levantamento.md) • [dicionário de dados](dicionario_de_dados.md) • [script SQL completo](docs/script.sql) • [DER conceitual](docs/der_conceitual.png) • [modelo lógico](docs/modelo_logico.png) • [roteiro da apresentação](roteiro_pitch.md) • [evidências](evidencias/)
 
