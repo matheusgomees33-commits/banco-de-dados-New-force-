@@ -1,7 +1,5 @@
 # Sistema de Cadastro da Academia
 
-# Entrega 2 — Modelo Lógico, Implementação SQL e Apresentação Final
-### Sistema de gestão de informações da Academia New Force
 
 | Nome completo do aluno | RGM | Usuário do GitHub |
 | :---- | :---- | :---- |
