@@ -51,9 +51,9 @@ Esta entrega segue o **Caso B**: a organização da Entrega 1 era uma academia g
 
 | Entrevista | Data | Local | Entrevistada | Integrantes presentes | Assunto |
 |---|---|---|---|---|---|
-| 1 | 25/09/2026 | Academia New Force | Renata Alves Pinheiro, gerente | [PREENCHER] | Operação geral, planos, acesso, cobrança, treinos e aulas |
-| 2 | 16/10/2026 | Academia New Force | Renata Alves Pinheiro, gerente | [PREENCHER] | Complemento e validação dos requisitos |
-| 3 | 27/10/2026 | Academia New Force | Renata Alves Pinheiro, gerente | [PREENCHER] | Equipamentos: cadastro, manutenção, garantia, segurança e relatórios |
+| 1 | 25/09/2026 | Academia New Force | Renata Alves Pinheiro, gerente | [Matheus Gomes] | Operação geral, planos, acesso, cobrança, treinos e aulas |
+| 2 | 16/10/2026 | Academia New Force | Renata Alves Pinheiro, gerente | [Matheus Gomes] | Complemento e validação dos requisitos |
+| 3 | 27/10/2026 | Academia New Force | Renata Alves Pinheiro, gerente | [Matheus Gomes] | Equipamentos: cadastro, manutenção, garantia, segurança e relatórios |
 
 - **Comprovação:** fotos das entrevistas em `evidencias/` (JPG ou PNG): [PREENCHER nomes dos arquivos].
 - **Observação presencial** (achados do grupo, separados das respostas da gerente): [PREENCHER: o que o grupo viu, por exemplo a catraca e o sistema da recepção, planilhas e papéis em uso, a placa de equipamento quebrado, o local dos aparelhos].
