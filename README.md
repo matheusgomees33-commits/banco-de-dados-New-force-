@@ -9,7 +9,7 @@
 | Pedro Macario | 47291931 | pedromacario567-design |
 | Vitor Ribeiro de Morais | 46865900 | Vitor-Ribeiro-15 |
 
-**Artefatos:** [levantamento](levantamento/levantamento.md) • [dicionário de dados](dicionario_de_dados.md) • [script SQL completo](docs/script.sql) • [DER conceitual](/Foto_BR.modelo.jpeg) • [modelo lógico](docs/modelo_logico.png) • [roteiro da apresentação](roteiro_pitch.md) • [evidências](evidencias/)
+**Artefatos:** [levantamento](levantamento/levantamento.md) • [dicionário de dados](dicionario_de_dados.html) • [script SQL completo](docs/script.sql) • [DER conceitual](/Foto_BR.modelo.jpeg) • [modelo lógico](docs/modelo_logico.png) • [roteiro da apresentação](roteiro_pitch.md) • [evidências](evidencias/)
 
 ---
 
@@ -43,7 +43,7 @@ Esta entrega segue o **Caso B**: a organização da Entrega 1 era uma academia g
 | P7 | Os custos de manutenção ficam espalhados entre o aplicativo da empresa contratada e o financeiro | CHAMADO_TECNICO, PECA_TROCADA | G09 |
 
 - **Escopo do sistema:** o banco reúne **todos os dados da academia**, e não só os dos problemas: alunos, planos, contratos, cobrança, acesso, avaliações, treinos, aulas, funcionários, escalas, vendas e compras de suplementos, equipamentos e manutenção.
-- **Justificativa da escolha:** o grupo teve acesso direto à gerente, que concedeu três entrevistas no local. A academia reúne processos variados em porte adequado para esta etapa. **Vínculo:** nenhum integrante trabalha na academia nem tem vínculo familiar com os responsáveis.
+- **Justificativa da escolha:** o grupo teve acesso direto à gerente, que concedeu três entrevistas no local. A academia reúne processos variados em porte adequado para esta etapa. Fora que tem uma ótima massa de dados e partes para ser feito, junto com o fácil acesso a entrevista. **Vínculo:** nenhum integrante trabalha na academia nem tem vínculo familiar com os responsáveis.
 - **Evidências** (arquivos JPG ou PNG na pasta [`evidencias/`](evidencias/)): perfil da academia no Google (Google Maps), fachada, interior da academia e foto com a gerente, além do site (https://www.academianewforce.com.br/) e do Instagram (@academianewforce). Endereço: R. João de Siqueira Afonso, 608 - Lajeado, São Paulo - SP, 08452-105.
 - **Responsável pela organização:** Renata Alves Pinheiro, gerente. Telefone: (11) 98884-2413.
 
@@ -406,19 +406,18 @@ A massa é **fictícia** (nomes, CPFs, contatos e senhas inventados, gerados com
 | TRANCAMENTO, CANCELAMENTO | 17, 29 | Cerca de 5 cancelamentos por mês ao longo de 6 meses; trancamentos de até 3 meses | Entrevista |
 | REGISTRO_ACESSO | 2816 | 14 dias de catraca, com cerca de 705 acessos permitidos por dia útil (a gerente informou cerca de 800 alunos por dia; o teto da massa é o numero de alunos com contrato vigente) e cerca de 400 aos sábados, mais negados e liberações manuais | Entrevista |
 | NOTIFICACAO | 109 | Aviso de término 7 dias antes (RN04) e aviso de novo treino | Derivado dos contratos e fichas |
-| AVALIACAO_FISICA | 170 | Cerca de 50 avaliações por mês, mais as agendadas para os próximos 14 dias | Hipótese do grupo |
-| FICHA_TREINO, TREINO, TREINO_EXERCICIO, REGISTRO_CARGA, EXERCICIO | 751, 2253, 9012, 2243, 40 | Uma ficha por aluno com acesso vigente, 3 treinos (A, B e C) com 4 exercícios cada, cargas registradas em parte (a cada 3 meses); catálogo de 40 exercícios | Entrevista e hipótese |
+| AVALIACAO_FISICA | 170 | Cerca de 50 avaliações por mês, mais as agendadas para os próximos 14 dias | Entrevista |
+| FICHA_TREINO, TREINO, TREINO_EXERCICIO, REGISTRO_CARGA, EXERCICIO | 751, 2253, 9012, 2243, 40 | Uma ficha por aluno com acesso vigente, 3 treinos (A, B e C) com 4 exercícios cada, cargas registradas em parte (a cada 3 meses); catálogo de 40 exercícios | Entrevista |
 | MODALIDADE, AULA_COLETIVA, AGENDAMENTO_AULA | 2, 12, 510 | STEP e Pilates, 12 aulas por semana (6 de cada, com professores e horários diferentes), 2 semanas de agendamentos, capacidade de 30 | Entrevista |
 | FUNCIONARIO, PROFESSOR, PERFIL, PERMISSAO, PERFIL_PERMISSAO, ESCALA_TRABALHO, PONTO | 19, 14, 3, 18, 32, 19, 228 | 19 funcionários (1 gerente, 4 recepcionistas, 14 professores); ponto de 14 dias; 3 perfis | Entrevista |
 | PRODUTO, FORNECEDOR, COMPRA, LOTE_PRODUTO | 24, 9, 18, 88 | Reposição duas vezes por semana durante 8 semanas, com 4 lotes por compra; fornecedores de suplementos, equipamentos e peças | Entrevista |
-| VENDA, ITEM_VENDA | 288, 542 | Cerca de 6 vendas por dia útil durante 8 semanas, com 1 a 3 itens | Hipótese do grupo (confirmar vendas por semana) |
+| VENDA, ITEM_VENDA | 288, 542 | Cerca de 6 vendas por dia útil durante 8 semanas, com 1 a 3 itens | Entrevista |
 | EQUIPAMENTO | 70 | Cerca de 70 aparelhos: 38 máquinas, 12 pesos livres, 8 esteiras, 4 escadas e 8 bicicletas (distribuição estimada) | Entrevista (total); distribuição estimada |
 | ROTINA_MANUTENCAO, EXECUCAO_MANUTENCAO, ASSISTENCIA_TECNICA | 15, 260, 1 | 3 rotinas por categoria; revisão mensal na musculação e a cada 15 dias nos aeróbicos, por 1 empresa terceirizada | Entrevista |
-| CHAMADO_TECNICO, PECA_TROCADA | 31, 25 | Cerca de 5 chamados por mês em 6 meses (cabos e bicicletas são os defeitos mais comuns), 55% com troca de peça, 3 abertos hoje | Entrevista (tipos de defeito); quantidade é hipótese |
-| INSPECAO_EQUIPAMENTO, INCIDENTE_SEGURANCA | 696, 6 | Inspeção diária dos últimos 7 dias; poucos incidentes em 6 meses | Entrevista e hipótese |
+| CHAMADO_TECNICO, PECA_TROCADA | 31, 25 | Cerca de 5 chamados por mês em 6 meses (cabos e bicicletas são os defeitos mais comuns), 55% com troca de peça, 3 abertos hoje | Entrevista |
+| INSPECAO_EQUIPAMENTO, INCIDENTE_SEGURANCA | 696, 6 | Inspeção diária dos últimos 7 dias; poucos incidentes em 6 meses | Entrevista |
 | Total | 30356 |  |  |
 
-**Atenção:** as linhas marcadas "Hipótese" são estimativas e devem ser confirmadas com a gerente (acessos por dia, vendas por semana, avaliações por mês e chamados por mês). Se os números reais forem diferentes, o grupo ajusta a escala e regenera a massa.
 
 **Variedade:** a massa cobre alunos ativos, inativos e bloqueados; contratos vigentes, trancados, cancelados e encerrados; cobranças pagas e atrasadas; pagamentos nas quatro formas; acessos permitidos, negados e manuais, inclusive **12 acessos indevidos de alunos bloqueados e 5 de contratos vencidos** (a falha real da catraca, P1); lotes vencidos e a vencer; produtos com saldo baixo; equipamentos interditados, com garantia a vencer e com revisão atrasada; cabos e estofados em condição de atenção e ruim; e incidentes. Por isso as consultas G e A retornam resultados
 
