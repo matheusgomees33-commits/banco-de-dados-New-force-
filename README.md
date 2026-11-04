@@ -57,7 +57,7 @@ Esta entrega segue o **Caso B**: a organização da Entrega 1 era uma academia g
 
 - **Comprovação:** fotos das entrevistas em `evidencias/` (JPG ou PNG): [Foto_Equipamento1.jpg](evidencias/Foto_Equipamento1.jpg) [Foto_Escada.jpg](evidencias/Foto_Escada.jpg) [Foto_Gerente](evidencias/Foto_Gerente.png) [Foto_Maquinas.jpeg](evidencias/Foto_Maquinas.jpeg) [Foto_Maquinas2](evidencias/Foto_Maquinas2.jpeg).
 - **Observação presencial** (achados do grupo, número elevado de planilhas, vencimento de planos não sendo aplicados de forma automática, validade dos produtos são monitorados pelos funcionários, os aparelhos não são inclusas no sistemas 
-- **O que foi levantado:** o levantamento completo, em texto organizado, está em [`levantamento/levantamento.md`](levantamento/levantamento.md). Em resumo: uma primeira versão da Entrega 1 usou uma academia genérica e foi descartada; as entrevistas no local trouxeram os números de porte, os processos de acesso, cobrança, treino, aulas, escalas e vendas, e a entrevista de equipamentos acrescentou cadastro de máquinas, manutenção preventiva e corretiva, garantia, inspeção diária, incidentes e relatórios de custo. A primeira entrevista da Entrega 1 teve problemas de informação e foi substituída.
+- **O que foi levantado:** o levantamento completo, em texto organizado, está em [`levantamento/levantamento.md`](/levantamento.md). Em resumo: uma primeira versão da Entrega 1 usou uma academia genérica e foi descartada; as entrevistas no local trouxeram os números de porte, os processos de acesso, cobrança, treino, aulas, escalas e vendas, e a entrevista de equipamentos acrescentou cadastro de máquinas, manutenção preventiva e corretiva, garantia, inspeção diária, incidentes e relatórios de custo. A primeira entrevista da Entrega 1 teve problemas de informação e foi substituída.
 
 #### Processos de negócio (com os dados de cada um)
 
@@ -188,11 +188,11 @@ Esta entrega segue o **Caso B**: a organização da Entrega 1 era uma academia g
 
 **Restrições legais e organizacionais:** LGPD (biometria, saúde e dados de menores), emissão de nota fiscal, horário de funcionamento (seg-sex 5h30-22h, sáb 8h-15h) e dependência da plataforma Nexfit (catraca, facial e aplicativo).
 
-**Regras prováveis não incluídas:** exigência de atestado médico ou PAR-Q e registro no CREF dos professores não foram levantadas nas entrevistas e por isso não entram no modelo; podem ser acrescentadas se a gerente confirmar.
+**Regras prováveis não incluídas:** Na nova entrevista foram levantados as informações que antes de conseguir treinar os alunos fazem um Teste de Prontidão física. E para professores darem aula eles precisam do CREF.
 
 #### Notação e software do DER
 
-O DER segue a notação do brModelo e está em [Foto_BR.modelo.jpeg](Foto_Br.modelo.jpeg). **Software em que foi criado:** [Foi gerado um modelo de IA para fazer o modelo, e depois refinamos usando o brModelo].
+O DER segue a notação do brModelo e está em [Foto_BR.modelo.jpeg](Foto_BR.modelo.jpeg). **Software em que foi criado:** [Foi gerado um modelo de IA para fazer o modelo, e depois refinamos usando o brModelo].
 
 #### Correções em relação à Entrega 1
 
@@ -386,25 +386,25 @@ Regras que o banco não impõe sozinho (capacidade de 30, 20 minutos, 3 meses de
 
 ## 2. Modelo Lógico Relacional
 
-Diagrama: [`docs/modelo_logico.png`](Foto_BR.modelo.jpeg). **Software em que foi criado:** [PREENCHER: informe o software realmente usado, por exemplo "brModelo"]. O diagrama mostra as 41 tabelas, as colunas com tipo, `PK`, `FK` e as cardinalidades `(mín, máx)` já convertidas. As restrições `NOT NULL`, `UNIQUE`, `CHECK` e `DEFAULT` estão no [dicionário de dados](dicionario_de_dados.md) e no script SQL.
+Diagrama: [`/modelo_logico.jpeg`](Foto_BR.modelo.jpeg). **Software em que foi criado:** [Foi usado CHATGPT usando os dados, para modelar o modelo logico]. O diagrama mostra as 41 tabelas, as colunas com tipo, `PK`, `FK` e as cardinalidades `(mín, máx)` já convertidas. As restrições `NOT NULL`, `UNIQUE`, `CHECK` e `DEFAULT` estão no [dicionário de dados](dicionario_de_dados.html) e no script SQL.
 
 ## 3. Script SQL Completo
 
 - **Arquivo:** [`docs/script.sql`](docs/script.sql) — executa em MySQL 8, do zero, na ordem: `CREATE DATABASE`, `CREATE TABLE`, constraints, `INSERT INTO`, `SELECT` com `JOIN` (J01 a J04), `UPDATE` (U01 a U03), `DELETE` (D01), consultas gerenciais (G01 a G18) e consultas de auditoria (A01 a A13).
-- **Teste:** [PREENCHER: "o grupo executou o script do zero, em banco vazio, no MySQL do laboratório / MySQL Workbench / myCompiler, sem erros" e a data].
+- **Teste:** [O grupo executou o script do zero, em banco vazio, no MySQL do laboratório / MySQL Workbench / No myCompiler, tive erros e foi feito na data 28/10].
 - **Versão reduzida para execução online:** [`docs/script_mycompiler.sql`](docs/script_mycompiler.sql), com a mesma estrutura, as mesmas consultas e um décimo dos alunos, para ambientes que não aceitam arquivos grandes.
 
 ## 4. Massa de Dados
 
-A massa é **fictícia** (nomes, CPFs, contatos e senhas inventados, gerados com semente fixa) e está no mesmo `script.sql`, na seção de `INSERT`. O volume vem dos números da academia:
+A massa é **fictícia** (nomes, CPFs, contatos e senhas inventados, gerados com semente fixa nada que foi usado foi de pessoas reais) e está no mesmo `script.sql`, na seção de `INSERT`. O volume vem dos números da academia:
 
 | Tabela(s) | Registros | Como o número se justifica | Origem do número |
 |---|---|---|---|
 | ALUNO | 850 (790 ativos, 25 bloqueados, 35 inativos) | Cerca de 850 alunos cadastrados (RNF01); cerca de 5% menores de idade | Entrevista |
 | CONTRATO | 2088 | Um contrato atual por aluno mais o histórico de renovações (planos mensais encadeados e planos de 3 a 12 meses): 780 vigentes, 15 trancados, 29 cancelados, 1264 encerrados | Estimativa do grupo |
 | COBRANCA, PAGAMENTO, NOTA_FISCAL | 2376, 2347, 2314 | Uma cobrança por contrato e uma por venda (288); nota fiscal em 98% dos pagamentos, para a auditoria ter o que mostrar | Derivado das demais tabelas |
-| TRANCAMENTO, CANCELAMENTO | 17, 29 | Cerca de 5 cancelamentos por mês ao longo de 6 meses; trancamentos de até 3 meses | Entrevista (período a confirmar) |
-| REGISTRO_ACESSO | 2816 | 14 dias de catraca, com cerca de 280 a 320 passagens por dia útil e 120 aos sábados, mais negados e liberações manuais | Hipótese do grupo (confirmar acessos por dia) |
+| TRANCAMENTO, CANCELAMENTO | 17, 29 | Cerca de 5 cancelamentos por mês ao longo de 6 meses; trancamentos de até 3 meses | Entrevista |
+| REGISTRO_ACESSO | 2816 | 14 dias de catraca, com cerca de 705 acessos permitidos por dia útil (a gerente informou cerca de 800 alunos por dia; o teto da massa é o numero de alunos com contrato vigente) e cerca de 400 aos sábados, mais negados e liberações manuais | Entrevista |
 | NOTIFICACAO | 109 | Aviso de término 7 dias antes (RN04) e aviso de novo treino | Derivado dos contratos e fichas |
 | AVALIACAO_FISICA | 170 | Cerca de 50 avaliações por mês, mais as agendadas para os próximos 14 dias | Hipótese do grupo |
 | FICHA_TREINO, TREINO, TREINO_EXERCICIO, REGISTRO_CARGA, EXERCICIO | 751, 2253, 9012, 2243, 40 | Uma ficha por aluno com acesso vigente, 3 treinos (A, B e C) com 4 exercícios cada, cargas registradas em parte (a cada 3 meses); catálogo de 40 exercícios | Entrevista e hipótese |
