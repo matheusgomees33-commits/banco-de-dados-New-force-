@@ -43,9 +43,9 @@ Esta entrega segue o **Caso B**: a organização da Entrega 1 era uma academia g
 | P7 | Os custos de manutenção ficam espalhados entre o aplicativo da empresa contratada e o financeiro | CHAMADO_TECNICO, PECA_TROCADA | G09 |
 
 - **Escopo do sistema:** o banco reúne **todos os dados da academia**, e não só os dos problemas: alunos, planos, contratos, cobrança, acesso, avaliações, treinos, aulas, funcionários, escalas, vendas e compras de suplementos, equipamentos e manutenção.
-- **Justificativa da escolha:** o grupo teve acesso direto à gerente, que concedeu três entrevistas no local. A academia reúne processos variados em porte adequado para esta etapa. **Vínculo:** [PREENCHER: "nenhum integrante trabalha na academia nem tem vínculo familiar com os responsáveis" ou o vínculo existente].
+- **Justificativa da escolha:** o grupo teve acesso direto à gerente, que concedeu três entrevistas no local. A academia reúne processos variados em porte adequado para esta etapa. **Vínculo:** nenhum integrante trabalha na academia nem tem vínculo familiar com os responsáveis.
 - **Evidências** (arquivos JPG ou PNG na pasta [`evidencias/`](evidencias/)): perfil da academia no Google (Google Maps), fachada, interior da academia e foto com a gerente, além do site (https://www.academianewforce.com.br/) e do Instagram (@academianewforce). Endereço: R. João de Siqueira Afonso, 608 - Lajeado, São Paulo - SP, 08452-105.
-- **Responsável pela organização:** Renata Alves Pinheiro, gerente. Telefone: [PREENCHER: telefone da Renata].
+- **Responsável pela organização:** Renata Alves Pinheiro, gerente. Telefone: (11) 9888-413.
 
 #### Relato da entrevista
 
@@ -56,7 +56,7 @@ Esta entrega segue o **Caso B**: a organização da Entrega 1 era uma academia g
 | 3 | 27/10/2026 | Academia New Force | Renata Alves Pinheiro, gerente | [Matheus Gomes] | Equipamentos: cadastro, manutenção, garantia, segurança e relatórios |
 
 - **Comprovação:** fotos das entrevistas em `evidencias/` (JPG ou PNG): [PREENCHER nomes dos arquivos].
-- **Observação presencial** (achados do grupo, separados das respostas da gerente): [PREENCHER: o que o grupo viu, por exemplo a catraca e o sistema da recepção, planilhas e papéis em uso, a placa de equipamento quebrado, o local dos aparelhos].
+- **Observação presencial** (achados do grupo, número elevado de planilhas, vencimento de planos não sendo aplicados de forma automática, validade dos produtos são monitorados pelos funcionários, os aparelhos não são inclusas no sistemas 
 - **O que foi levantado:** o levantamento completo, em texto organizado, está em [`levantamento/levantamento.md`](levantamento/levantamento.md). Em resumo: uma primeira versão da Entrega 1 usou uma academia genérica e foi descartada; as entrevistas no local trouxeram os números de porte, os processos de acesso, cobrança, treino, aulas, escalas e vendas, e a entrevista de equipamentos acrescentou cadastro de máquinas, manutenção preventiva e corretiva, garantia, inspeção diária, incidentes e relatórios de custo. A primeira entrevista da Entrega 1 teve problemas de informação e foi substituída.
 
 #### Processos de negócio (com os dados de cada um)
