@@ -150,7 +150,7 @@ Os fluxogramas dos principais processos do sistema (matrícula de aluno, check-i
 
 ## 9. Uso de Inteligência Artificial
 
-O grupo utilizou uma ferramenta de IA (Claude, da Anthropic) na etapa de **organização e redação deste README**, conforme registrado abaixo.
+O grupo utilizou uma ferramenta de IA (Claude, da Anthropic) na etapa de **organização e redação deste README**, conforme registrado abaixo no nosso projeto .
 
 | Item | Registro |
 |------|----------|
