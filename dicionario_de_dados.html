@@ -1,0 +1,3020 @@
+<!doctype html><html lang="pt-BR"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Dicionário de Dados — Academia New Force</title><style>:root{--bg:#fafaf7;--fg:#1d1d1b;--line:#d8d6cc;--acc:#8a6d00;--chip:#fff3c4}@media(prefers-color-scheme:dark){:root{--bg:#16150f;--fg:#ecebe3;--line:#3a382c;--acc:#f2c744;--chip:#3a3210}}body{font:16px/1.55 system-ui,sans-serif;background:var(--bg);color:var(--fg);max-width:80rem;margin:0 auto;padding:1.5rem}h2{margin-top:2.5rem;border-top:2px solid var(--acc);padding-top:.8rem}h3{margin-top:2rem}table{border-collapse:collapse;width:100%;margin:.6rem 0 1.2rem;display:block;overflow-x:auto}th,td{border:1px solid var(--line);padding:.35rem .55rem;text-align:left;vertical-align:top}th{background:var(--chip)}code{font-family:ui-monospace,monospace;font-size:.92em;overflow-wrap:anywhere}</style></head><body><h1 id="dicionario-de-dados-academia-new-force">Dicionário de Dados — Academia New Force</h1>
+<h2 id="1-modelo-conceitual">1. Modelo conceitual</h2>
+<p>Este modelo representa a Academia New Force: cada aluno assina contratos de um plano, passa pela catraca, é atendido por professores (avaliação física, treinos e aulas coletivas de STEP e Pilates) e pode comprar suplementos. A academia também mantém equipamentos, com inspeção, manutenção preventiva e chamados técnicos, além de escalas e ponto de funcionários.</p>
+<table>
+<thead>
+<tr>
+<th>Entidade</th>
+<th>Relaciona-se com</th>
+<th>Cardinalidade</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>ALUNO</td>
+<td>CONTRATO</td>
+<td><strong>1:N</strong> — cada ALUNO se relaciona com 0..N CONTRATO; cada CONTRATO com 1 ALUNO (assina)</td>
+</tr>
+<tr>
+<td>PLANO</td>
+<td>CONTRATO</td>
+<td><strong>1:N</strong> — cada PLANO se relaciona com 0..N CONTRATO; cada CONTRATO com 1 PLANO (define)</td>
+</tr>
+<tr>
+<td>PROMOCAO</td>
+<td>CONTRATO</td>
+<td><strong>1:N</strong> — cada PROMOCAO se relaciona com 0..N CONTRATO; cada CONTRATO com 0..1 PROMOCAO (beneficia)</td>
+</tr>
+<tr>
+<td>CONTRATO</td>
+<td>TRANCAMENTO</td>
+<td><strong>1:N</strong> — cada CONTRATO se relaciona com 0..N TRANCAMENTO; cada TRANCAMENTO com 1 CONTRATO (sofre)</td>
+</tr>
+<tr>
+<td>CONTRATO</td>
+<td>CANCELAMENTO</td>
+<td><strong>1:1</strong> — cada CONTRATO se relaciona com 0..1 CANCELAMENTO; cada CANCELAMENTO com 1 CONTRATO (encerrado por)</td>
+</tr>
+<tr>
+<td>CONTRATO</td>
+<td>COBRANCA</td>
+<td><strong>1:N</strong> — cada CONTRATO se relaciona com 0..N COBRANCA; cada COBRANCA com 0..1 CONTRATO (gera)</td>
+</tr>
+<tr>
+<td>VENDA</td>
+<td>COBRANCA</td>
+<td><strong>1:N</strong> — cada VENDA se relaciona com 0..N COBRANCA; cada COBRANCA com 0..1 VENDA (gera)</td>
+</tr>
+<tr>
+<td>COBRANCA</td>
+<td>PAGAMENTO</td>
+<td><strong>1:N</strong> — cada COBRANCA se relaciona com 0..N PAGAMENTO; cada PAGAMENTO com 1 COBRANCA (quitada por)</td>
+</tr>
+<tr>
+<td>PAGAMENTO</td>
+<td>NOTA_FISCAL</td>
+<td><strong>1:1</strong> — cada PAGAMENTO se relaciona com 0..1 NOTA_FISCAL; cada NOTA_FISCAL com 1 PAGAMENTO (documentado por)</td>
+</tr>
+<tr>
+<td>ALUNO</td>
+<td>REGISTRO_ACESSO</td>
+<td><strong>1:N</strong> — cada ALUNO se relaciona com 0..N REGISTRO_ACESSO; cada REGISTRO_ACESSO com 1 ALUNO (realiza)</td>
+</tr>
+<tr>
+<td>FUNCIONARIO</td>
+<td>REGISTRO_ACESSO</td>
+<td><strong>1:N</strong> — cada FUNCIONARIO se relaciona com 0..N REGISTRO_ACESSO; cada REGISTRO_ACESSO com 0..1 FUNCIONARIO (libera manualmente)</td>
+</tr>
+<tr>
+<td>ALUNO</td>
+<td>NOTIFICACAO</td>
+<td><strong>1:N</strong> — cada ALUNO se relaciona com 0..N NOTIFICACAO; cada NOTIFICACAO com 1 ALUNO (recebe)</td>
+</tr>
+<tr>
+<td>PERFIL</td>
+<td>FUNCIONARIO</td>
+<td><strong>1:N</strong> — cada PERFIL se relaciona com 0..N FUNCIONARIO; cada FUNCIONARIO com 1 PERFIL (classifica)</td>
+</tr>
+<tr>
+<td>FUNCIONARIO</td>
+<td>PONTO</td>
+<td><strong>1:N</strong> — cada FUNCIONARIO se relaciona com 0..N PONTO; cada PONTO com 1 FUNCIONARIO (registra)</td>
+</tr>
+<tr>
+<td>FUNCIONARIO</td>
+<td>ESCALA_TRABALHO</td>
+<td><strong>1:N</strong> — cada FUNCIONARIO se relaciona com 0..N ESCALA_TRABALHO; cada ESCALA_TRABALHO com 1 FUNCIONARIO (cumpre)</td>
+</tr>
+<tr>
+<td>FUNCIONARIO</td>
+<td>PROFESSOR</td>
+<td><strong>1:1</strong> — cada FUNCIONARIO se relaciona com 0..1 PROFESSOR; cada PROFESSOR com 1 FUNCIONARIO (pode ser)</td>
+</tr>
+<tr>
+<td>ALUNO</td>
+<td>AVALIACAO_FISICA</td>
+<td><strong>1:N</strong> — cada ALUNO se relaciona com 0..N AVALIACAO_FISICA; cada AVALIACAO_FISICA com 1 ALUNO (realiza)</td>
+</tr>
+<tr>
+<td>PROFESSOR</td>
+<td>AVALIACAO_FISICA</td>
+<td><strong>1:N</strong> — cada PROFESSOR se relaciona com 0..N AVALIACAO_FISICA; cada AVALIACAO_FISICA com 1 PROFESSOR (conduz)</td>
+</tr>
+<tr>
+<td>ALUNO</td>
+<td>FICHA_TREINO</td>
+<td><strong>1:N</strong> — cada ALUNO se relaciona com 0..N FICHA_TREINO; cada FICHA_TREINO com 1 ALUNO (possui)</td>
+</tr>
+<tr>
+<td>PROFESSOR</td>
+<td>FICHA_TREINO</td>
+<td><strong>1:N</strong> — cada PROFESSOR se relaciona com 0..N FICHA_TREINO; cada FICHA_TREINO com 1 PROFESSOR (elabora)</td>
+</tr>
+<tr>
+<td>FICHA_TREINO</td>
+<td>TREINO</td>
+<td><strong>1:N</strong> — cada FICHA_TREINO se relaciona com 1..N TREINO; cada TREINO com 1 FICHA_TREINO (divide em)</td>
+</tr>
+<tr>
+<td>TREINO</td>
+<td>TREINO_EXERCICIO</td>
+<td><strong>1:N</strong> — cada TREINO se relaciona com 1..N TREINO_EXERCICIO; cada TREINO_EXERCICIO com 1 TREINO (contém)</td>
+</tr>
+<tr>
+<td>EXERCICIO</td>
+<td>TREINO_EXERCICIO</td>
+<td><strong>1:N</strong> — cada EXERCICIO se relaciona com 0..N TREINO_EXERCICIO; cada TREINO_EXERCICIO com 1 EXERCICIO (compõe)</td>
+</tr>
+<tr>
+<td>TREINO_EXERCICIO</td>
+<td>REGISTRO_CARGA</td>
+<td><strong>1:N</strong> — cada TREINO_EXERCICIO se relaciona com 0..N REGISTRO_CARGA; cada REGISTRO_CARGA com 1 TREINO_EXERCICIO (tem)</td>
+</tr>
+<tr>
+<td>MODALIDADE</td>
+<td>AULA_COLETIVA</td>
+<td><strong>1:N</strong> — cada MODALIDADE se relaciona com 0..N AULA_COLETIVA; cada AULA_COLETIVA com 1 MODALIDADE (classifica)</td>
+</tr>
+<tr>
+<td>PROFESSOR</td>
+<td>AULA_COLETIVA</td>
+<td><strong>1:N</strong> — cada PROFESSOR se relaciona com 0..N AULA_COLETIVA; cada AULA_COLETIVA com 1 PROFESSOR (ministra)</td>
+</tr>
+<tr>
+<td>AULA_COLETIVA</td>
+<td>AGENDAMENTO_AULA</td>
+<td><strong>1:N</strong> — cada AULA_COLETIVA se relaciona com 0..N AGENDAMENTO_AULA; cada AGENDAMENTO_AULA com 1 AULA_COLETIVA (recebe)</td>
+</tr>
+<tr>
+<td>ALUNO</td>
+<td>AGENDAMENTO_AULA</td>
+<td><strong>1:N</strong> — cada ALUNO se relaciona com 0..N AGENDAMENTO_AULA; cada AGENDAMENTO_AULA com 1 ALUNO (faz)</td>
+</tr>
+<tr>
+<td>ALUNO</td>
+<td>VENDA</td>
+<td><strong>1:N</strong> — cada ALUNO se relaciona com 0..N VENDA; cada VENDA com 0..1 ALUNO (compra)</td>
+</tr>
+<tr>
+<td>FUNCIONARIO</td>
+<td>VENDA</td>
+<td><strong>1:N</strong> — cada FUNCIONARIO se relaciona com 0..N VENDA; cada VENDA com 1 FUNCIONARIO (registra)</td>
+</tr>
+<tr>
+<td>VENDA</td>
+<td>ITEM_VENDA</td>
+<td><strong>1:N</strong> — cada VENDA se relaciona com 1..N ITEM_VENDA; cada ITEM_VENDA com 1 VENDA (contém)</td>
+</tr>
+<tr>
+<td>PRODUTO</td>
+<td>ITEM_VENDA</td>
+<td><strong>1:N</strong> — cada PRODUTO se relaciona com 0..N ITEM_VENDA; cada ITEM_VENDA com 1 PRODUTO (vendido em)</td>
+</tr>
+<tr>
+<td>PRODUTO</td>
+<td>LOTE_PRODUTO</td>
+<td><strong>1:N</strong> — cada PRODUTO se relaciona com 0..N LOTE_PRODUTO; cada LOTE_PRODUTO com 1 PRODUTO (possui)</td>
+</tr>
+<tr>
+<td>FORNECEDOR</td>
+<td>COMPRA</td>
+<td><strong>1:N</strong> — cada FORNECEDOR se relaciona com 0..N COMPRA; cada COMPRA com 1 FORNECEDOR (fornece em)</td>
+</tr>
+<tr>
+<td>COMPRA</td>
+<td>LOTE_PRODUTO</td>
+<td><strong>1:N</strong> — cada COMPRA se relaciona com 1..N LOTE_PRODUTO; cada LOTE_PRODUTO com 1 COMPRA (recebe)</td>
+</tr>
+<tr>
+<td>EQUIPAMENTO</td>
+<td>EXECUCAO_MANUTENCAO</td>
+<td><strong>1:N</strong> — cada EQUIPAMENTO se relaciona com 0..N EXECUCAO_MANUTENCAO; cada EXECUCAO_MANUTENCAO com 1 EQUIPAMENTO (recebe)</td>
+</tr>
+<tr>
+<td>ROTINA_MANUTENCAO</td>
+<td>EXECUCAO_MANUTENCAO</td>
+<td><strong>1:N</strong> — cada ROTINA_MANUTENCAO se relaciona com 0..N EXECUCAO_MANUTENCAO; cada EXECUCAO_MANUTENCAO com 1 ROTINA_MANUTENCAO (define)</td>
+</tr>
+<tr>
+<td>ASSISTENCIA_TECNICA</td>
+<td>EXECUCAO_MANUTENCAO</td>
+<td><strong>1:N</strong> — cada ASSISTENCIA_TECNICA se relaciona com 0..N EXECUCAO_MANUTENCAO; cada EXECUCAO_MANUTENCAO com 0..1 ASSISTENCIA_TECNICA (realiza revisão)</td>
+</tr>
+<tr>
+<td>EQUIPAMENTO</td>
+<td>CHAMADO_TECNICO</td>
+<td><strong>1:N</strong> — cada EQUIPAMENTO se relaciona com 0..N CHAMADO_TECNICO; cada CHAMADO_TECNICO com 1 EQUIPAMENTO (gera)</td>
+</tr>
+<tr>
+<td>ASSISTENCIA_TECNICA</td>
+<td>CHAMADO_TECNICO</td>
+<td><strong>1:N</strong> — cada ASSISTENCIA_TECNICA se relaciona com 0..N CHAMADO_TECNICO; cada CHAMADO_TECNICO com 0..1 ASSISTENCIA_TECNICA (atende)</td>
+</tr>
+<tr>
+<td>ALUNO</td>
+</tr>
+<tr>
+<td>PERFIL</td>
+<td>PERFIL_PERMISSAO</td>
+<td><strong>1:N</strong> — cada PERFIL se relaciona com 0..N PERFIL_PERMISSAO; cada PERFIL_PERMISSAO com 1 PERFIL (concede)</td>
+</tr>
+<tr>
+<td>PERMISSAO</td>
+<td>PERFIL_PERMISSAO</td>
+<td><strong>1:N</strong> — cada PERMISSAO se relaciona com 0..N PERFIL_PERMISSAO; cada PERFIL_PERMISSAO com 1 PERMISSAO (é concedida em)</td>
+</tr>
+<tr>
+<td>FORNECEDOR</td>
+<td>EQUIPAMENTO</td>
+<td><strong>1:N</strong> — cada FORNECEDOR se relaciona com 0..N EQUIPAMENTO; cada EQUIPAMENTO com 0..1 FORNECEDOR (vende)</td>
+</tr>
+<tr>
+<td>EQUIPAMENTO</td>
+<td>INSPECAO_EQUIPAMENTO</td>
+<td><strong>1:N</strong> — cada EQUIPAMENTO se relaciona com 0..N INSPECAO_EQUIPAMENTO; cada INSPECAO_EQUIPAMENTO com 1 EQUIPAMENTO (passa por)</td>
+</tr>
+<tr>
+<td>FUNCIONARIO</td>
+<td>INSPECAO_EQUIPAMENTO</td>
+<td><strong>1:N</strong> — cada FUNCIONARIO se relaciona com 0..N INSPECAO_EQUIPAMENTO; cada INSPECAO_EQUIPAMENTO com 0..1 FUNCIONARIO (realiza)</td>
+</tr>
+<tr>
+<td>FUNCIONARIO</td>
+<td>CHAMADO_TECNICO</td>
+<td><strong>1:N</strong> — cada FUNCIONARIO se relaciona com 0..N CHAMADO_TECNICO; cada CHAMADO_TECNICO com 0..1 FUNCIONARIO (autoriza liberação de)</td>
+</tr>
+<tr>
+<td>CHAMADO_TECNICO</td>
+<td>PECA_TROCADA</td>
+<td><strong>1:N</strong> — cada CHAMADO_TECNICO se relaciona com 0..N PECA_TROCADA; cada PECA_TROCADA com 1 CHAMADO_TECNICO (usa)</td>
+</tr>
+<tr>
+<td>FORNECEDOR</td>
+<td>PECA_TROCADA</td>
+<td><strong>1:N</strong> — cada FORNECEDOR se relaciona com 0..N PECA_TROCADA; cada PECA_TROCADA com 0..1 FORNECEDOR (vende peça)</td>
+</tr>
+<tr>
+<td>EQUIPAMENTO</td>
+<td>INCIDENTE_SEGURANCA</td>
+<td><strong>1:N</strong> — cada EQUIPAMENTO se relaciona com 0..N INCIDENTE_SEGURANCA; cada INCIDENTE_SEGURANCA com 1 EQUIPAMENTO (envolve)</td>
+</tr>
+<tr>
+<td>ALUNO</td>
+<td>INCIDENTE_SEGURANCA</td>
+<td><strong>1:N</strong> — cada ALUNO se relaciona com 0..N INCIDENTE_SEGURANCA; cada INCIDENTE_SEGURANCA com 0..1 ALUNO (sofre)</td>
+</tr>
+</tbody>
+</table>
+<p>CONTRATO é a entidade associativa entre ALUNO e PLANO; AGENDAMENTO_AULA, entre ALUNO e AULA_COLETIVA; ITEM_VENDA, entre VENDA e PRODUTO; TREINO_EXERCICIO, entre TREINO e EXERCICIO; EXECUCAO_MANUTENCAO, entre EQUIPAMENTO e ROTINA_MANUTENCAO; PERFIL_PERMISSAO resolve o N:N entre PERFIL e PERMISSAO. Cada COBRANCA pertence a um CONTRATO ou a uma VENDA, nunca aos dois (arco exclusivo, implementado por CHECK).</p>
+<ul>
+<li><strong>ALUNO</strong> — Pessoa cadastrada na academia; centraliza contratos, acessos, treinos e aulas (RF01–RF04).</li>
+<li><strong>PARQ</strong> — Questionário PAR-Q preenchido pelo aluno, exigido antes de treinar (RF47).</li>
+<li><strong>PLANO</strong> — Produto comercial que o aluno contrata: mensal, trimestral, semestral, anual ou diária (RF10, RF11).</li>
+<li><strong>PROMOCAO</strong> — Promoção mensal que concede benefício, com prioridade a quem fecha plano anual (RF16).</li>
+<li><strong>CONTRATO</strong> — Vínculo de um aluno com um plano; concentra matrícula, renovação, trancamento e cancelamento (RF12–RF15).</li>
+<li><strong>TRANCAMENTO</strong> — Suspensão temporária do contrato (RF13).</li>
+<li><strong>CANCELAMENTO</strong> — Encerramento antecipado do contrato, com multa e cobrança dos meses usados, feito apenas dentro do sistema (RF14).</li>
+<li><strong>COBRANCA</strong> — Valor devido por um contrato ou por uma venda; separa o que é devido do que foi pago (RF18, RF20).</li>
+<li><strong>PAGAMENTO</strong> — Valor efetivamente recebido para quitar uma cobrança (RF17).</li>
+<li><strong>NOTA_FISCAL</strong> — Documento fiscal emitido para um pagamento (RF19).</li>
+<li><strong>REGISTRO_ACESSO</strong> — Passagem do aluno pela catraca; também fornece a frequência (RF05, RF06, RF08, RF09, RF36).</li>
+<li><strong>NOTIFICACAO</strong> — Aviso enviado ao aluno (RF07, RF27).</li>
+<li><strong>PERFIL</strong> — Perfil de acesso ao sistema (RF31).</li>
+<li><strong>PERMISSAO</strong> — Ação permitida em um módulo do sistema; as permissões de cada perfil são definidas pela academia (RF31).</li>
+<li><strong>PERFIL_PERMISSAO</strong> — Permissão concedida a um perfil (relacionamento N:N entre PERFIL e PERMISSAO); a recepção recebe mais permissões que a gerente e os professores.</li>
+<li><strong>FUNCIONARIO</strong> — Pessoa que trabalha na academia e usa o sistema (RF31, RF33).</li>
+<li><strong>PROFESSOR</strong> — Funcionário contratado pela academia para treinos, avaliações e aulas (RF32).</li>
+<li><strong>ESCALA_TRABALHO</strong> — Turno em que o funcionário trabalha; recepção em três turnos mais um reforço, professores com jornada diária (RF38).</li>
+<li><strong>PONTO</strong> — Registro de entrada e saída do funcionário por reconhecimento facial (RF33).</li>
+<li><strong>AVALIACAO_FISICA</strong> — Avaliação do aluno agendada com o professor (RF22, RF23).</li>
+<li><strong>FICHA_TREINO</strong> — Conjunto de treinos montado pelo professor para um aluno e mostrado no aplicativo (RF24, RF27).</li>
+<li><strong>TREINO</strong> — Divisão da ficha em treinos A, B e C (RF24).</li>
+<li><strong>EXERCICIO</strong> — Exercício disponível para compor treinos (RF25).</li>
+<li><strong>TREINO_EXERCICIO</strong> — Exercício dentro de um treino, com séries e repetições.</li>
+<li><strong>REGISTRO_CARGA</strong> — Carga usada pelo aluno em um exercício (RF26).</li>
+<li><strong>MODALIDADE</strong> — Tipo de aula coletiva.</li>
+<li><strong>AULA_COLETIVA</strong> — Aula semanal de uma modalidade, com dia, horário e professor próprios; o turno (manhã, tarde, noite) é derivado de HR_INICIO (RF28–RF30).</li>
+<li><strong>AGENDAMENTO_AULA</strong> — Reserva de vaga de um aluno em uma aula (RF29, RF30).</li>
+<li><strong>PRODUTO</strong> — Suplemento vendido na academia (RF34).</li>
+<li><strong>LOTE_PRODUTO</strong> — Quantidade de um produto recebida em uma compra, com validade (RF35).</li>
+<li><strong>COMPRA</strong> — Reposição de suplementos, feita duas vezes por semana (RF37).</li>
+<li><strong>FORNECEDOR</strong> — Comércio ou empresa que vende à academia suplementos (visitas duas vezes por semana), equipamentos ou peças de reposição.</li>
+<li><strong>VENDA</strong> — Venda de suplementos na academia (RF34).</li>
+<li><strong>ITEM_VENDA</strong> — Produto e quantidade dentro de uma venda.</li>
+<li><strong>EQUIPAMENTO</strong> — Aparelho da academia (cerca de 70: máquinas, pesos livres, esteiras, escadas e bicicletas), com garantia, manutenção e interdição (RF39, RF42).</li>
+<li><strong>ROTINA_MANUTENCAO</strong> — Rotina do cronograma de manutenção preventiva, por categoria de equipamento (RF39).</li>
+<li><strong>EXECUCAO_MANUTENCAO</strong> — Execução de uma rotina em um equipamento; guarda o histórico (RF40).</li>
+<li><strong>INSPECAO_EQUIPAMENTO</strong> — Inspeção diária de cabos, polias, estofados e estruturas, hoje registrada em planilha Excel (RF42).</li>
+<li><strong>CHAMADO_TECNICO</strong> — Registro de defeito: interdição, diagnóstico, visita, reparo, teste de carga e liberação (RF41).</li>
+<li><strong>PECA_TROCADA</strong> — Peça substituída em um chamado, para controle de custo (RF43).</li>
+<li><strong>INCIDENTE_SEGURANCA</strong> — Acidente ou problema de segurança ligado a um equipamento (RF44).</li>
+<li><strong>ASSISTENCIA_TECNICA</strong> — Empresa terceirizada contratada para as manutenções, com aplicativo próprio de calendário e registro.</li>
+</ul>
+<h2 id="2-fluxo-de-dados-visao-de-dfd">2. Fluxo de dados (visão de DFD)</h2>
+<p>Aluno procura a academia → cadastro em ALUNO (com biometria facial e senha da catraca) → preenchimento do PARQ manual → escolha do PLANO e geração do CONTRATO, com PROMOCAO vigente se houver → o contrato gera COBRANCA → o PAGAMENTO quita a cobrança e origina a NOTA_FISCAL → o atraso muda a situação do ALUNO para bloqueado → a situação do aluno e a validade do contrato decidem a liberação da catraca, registrada em REGISTRO_ACESSO (que também fornece a frequência) → o ALUNO é atendido por um PROFESSOR em AVALIACAO_FISICA e FICHA_TREINO (treinos A, B e C com EXERCICIO e REGISTRO_CARGA) e agenda AULA_COLETIVA em AGENDAMENTO_AULA → a recepção vende suplementos em VENDA e ITEM_VENDA, abastecidos por COMPRA e LOTE_PRODUTO de um FORNECEDOR → FUNCIONARIO (com PERFIL e PERMISSAO) registra PONTO e cumpre ESCALA_TRABALHO → EQUIPAMENTO recebe INSPECAO_EQUIPAMENTO diária e EXECUCAO_MANUTENCAO conforme ROTINA_MANUTENCAO da ASSISTENCIA_TECNICA e, quando quebra, é interditado e gera CHAMADO_TECNICO com PECA_TROCADA; falhas com risco geram INCIDENTE_SEGURANCA → toda leitura ou escrita nessas tabelas deve ser registrada no log de acesso do SGBD (seção 5), o que sustenta auditoria e a conformidade com a LGPD (seção 6).</p>
+<h2 id="3-convencoes-do-dicionario">3. Convenções do dicionário</h2>
+<p><strong>SGBD:</strong> MySQL 8, mecanismo InnoDB — persistência dos arquivos de dados, log de transações (redo/undo) e índice primário clusterizado por chave.</p>
+<p><strong>Codificação de caracteres:</strong> utf8mb4 com collation utf8mb4_unicode_ci, escolhida por cobrir a acentuação do português sem perda em nomes e textos livres e por ser aceita em MySQL 8 e em instalações equivalentes (por exemplo MariaDB).</p>
+<p><strong>Notação formal:</strong></p>
+<table>
+<thead>
+<tr>
+<th>Símbolo</th>
+<th>Significado</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>=</code></td>
+<td>é composto de</td>
+</tr>
+<tr>
+<td><code>+</code></td>
+<td>e (conecta elementos obrigatórios)</td>
+</tr>
+<tr>
+<td><code>( )</code></td>
+<td>opcional</td>
+</tr>
+<tr>
+<td>[ &#124; ]</td>
+<td>escolha obrigatória entre alternativas</td>
+</tr>
+<tr>
+<td><code>@</code></td>
+<td>identificador (chave primária)</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Prefixos:</strong> NM_ nome, DT_ data (ou data e hora), ID_ identificador (não sofre operação matemática), CD_ código de domínio, QT_ quantidade, TP_ tipo (categorização), IN_ indicador booleano. Este dicionário também usa quatro prefixos fora dos sete padrão, pelo mesmo princípio: DS_ descrição ou texto livre, VL_ valor monetário ou medido, HR_ hora do dia e NR_ número de contato ou documento que não sofre operação matemática.</p>
+<p><strong>Restrições:</strong> todas as chaves estrangeiras usam ON DELETE RESTRICT (nenhum dado é apagado em cascata; o histórico é preservado). Colunas booleanas são BOOLEAN (0 ou 1). Valores permitidos são implementados por CHECK … IN (…).</p>
+<p><strong>Versão deste dicionário:</strong> v1.0, outubro/2026. Qualquer alteração de estrutura gera nova revisão registrada nesta seção, o que também atende ao princípio de rastreabilidade da LGPD (art. 6º, X).</p>
+<h2 id="4-dicionario-de-dados-por-entidade">4. Dicionário de dados por entidade</h2>
+<h3 id="aluno">ALUNO</h3>
+<p><code>ALUNO = @ID_ALUNO + ID_CPF + ID_RG + NM_ALUNO + DT_NASCIMENTO + NR_CELULAR + CD_CEP + DS_EMAIL + [TP_ATIVO | TP_INATIVO | TP_BLOQUEADO] + (DS_RESTRICAO_PESSOAL) + (NR_TELEFONE_RESPONSAVEL) + (DS_SENHA_ACESSO_HASH) + (DS_BIOMETRIA_FACIAL)</code></p>
+<p><strong>Leitura:</strong> @ID_ALUNO é o identificador único (chave primária substituta, gerada pelo sistema). Os itens entre ( ) são opcionais. [TP_ATIVO | TP_INATIVO | TP_BLOQUEADO] exige escolher um valor para TP_SITUACAO.</p>
+<table>
+<thead>
+<tr>
+<th>Atributo</th>
+<th>Tipo físico</th>
+<th>Obrigatório</th>
+<th>Restrições e valor padrão</th>
+<th>Significado e relevância</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>ID_ALUNO</code></td>
+<td>integer</td>
+<td>Sim (PK)</td>
+<td>AUTO_INCREMENT; PRIMARY KEY</td>
+<td>Identificador do registro; não sofre operação matemática.</td>
+</tr>
+<tr>
+<td><code>ID_CPF</code></td>
+<td>varchar(11)</td>
+<td>Sim (único)</td>
+<td>UNIQUE</td>
+<td>CPF do aluno. Obrigatório e único.</td>
+</tr>
+<tr>
+<td><code>ID_RG</code></td>
+<td>varchar(20)</td>
+<td>Sim</td>
+<td>—</td>
+<td>RG do aluno. Obrigatório.</td>
+</tr>
+<tr>
+<td><code>NM_ALUNO</code></td>
+<td>varchar(120)</td>
+<td>Sim</td>
+<td>—</td>
+<td>Nome completo. Obrigatório.</td>
+</tr>
+<tr>
+<td><code>DT_NASCIMENTO</code></td>
+<td>DATE</td>
+<td>Sim</td>
+<td>—</td>
+<td>Data de nascimento. Define se o aluno é menor de idade.</td>
+</tr>
+<tr>
+<td><code>NR_CELULAR</code></td>
+<td>varchar(20)</td>
+<td>Sim</td>
+<td>—</td>
+<td>Celular para contato e avisos. Obrigatório.</td>
+</tr>
+<tr>
+<td><code>CD_CEP</code></td>
+<td>char(8)</td>
+<td>Sim</td>
+<td>—</td>
+<td>CEP do endereço. Obrigatório.</td>
+</tr>
+<tr>
+<td><code>DS_EMAIL</code></td>
+<td>varchar(120)</td>
+<td>Sim</td>
+<td>—</td>
+<td>E-mail do aluno. Obrigatório.</td>
+</tr>
+<tr>
+<td><code>DS_RESTRICAO_PESSOAL</code></td>
+<td>TEXT</td>
+<td>Não</td>
+<td>—</td>
+<td>Restrição pessoal informada no cadastro. Dado sensível (LGPD).</td>
+</tr>
+<tr>
+<td><code>NR_TELEFONE_RESPONSAVEL</code></td>
+<td>varchar(20)</td>
+<td>Não</td>
+<td>—</td>
+<td>Telefone dos pais ou responsável. Obrigatório se o aluno for menor de 18 anos.</td>
+</tr>
+<tr>
+<td><code>TP_SITUACAO</code></td>
+<td>varchar(10)</td>
+<td>Sim (escolha)</td>
+<td>CHECK IN (ativo, inativo, bloqueado); DEFAULT 'ativo'</td>
+<td>Situação do aluno. Inativo é quem não frequenta mais; bloqueado é quem está com pagamento atrasado.</td>
+</tr>
+<tr>
+<td><code>DS_SENHA_ACESSO_HASH</code></td>
+<td>varchar(255)</td>
+<td>Não</td>
+<td>—</td>
+<td>Senha de entrada na catraca, guardada em hash. Usada quando o reconhecimento facial falha (RF05).</td>
+</tr>
+<tr>
+<td><code>DS_BIOMETRIA_FACIAL</code></td>
+<td>BLOB</td>
+<td>Não</td>
+<td>—</td>
+<td>Modelo biométrico facial usado na catraca (não a foto). Registrado na matrícula; dado sensível (LGPD).</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Restrições da tabela:</strong> CHECK (LENGTH(ID_CPF) = 11 AND LENGTH(CD_CEP) = 8).</p>
+<p><strong>Índices:</strong> PK ID_ALUNO (clusterizado); único em ID_CPF (evita duplicidade); índice secundário em NM_ALUNO (busca por nome na recepção).</p>
+<table>
+<thead>
+<tr>
+<th>Atributo</th>
+<th>Tipo físico</th>
+<th>Obrigatório</th>
+<th>Restrições e valor padrão</th>
+<th>Significado e relevância</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>ID_ALUNO</code></td>
+<td>integer</td>
+<td>Sim (FK)</td>
+<td>FOREIGN KEY → ALUNO(ID_ALUNO); ON DELETE RESTRICT</td>
+<td>Referência a ALUNO (preenche).</td>
+</tr>
+<tr>
+<td><code>DT_PREENCHIMENTO</code></td>
+<td>DATE</td>
+<td>Sim</td>
+<td>—</td>
+<td>Data de preenchimento. Obrigatória.</td>
+</tr>
+<tr>
+<td><code>IN_APTO</code></td>
+<td>BOOLEAN</td>
+<td>Sim</td>
+<td>—</td>
+<td>Resultado: apto a treinar sem liberação médica. Se 0, o aluno precisa de avaliação ou liberação médica; dado de saúde (LGPD).</td>
+</tr>
+<tr>
+<td><code>DS_OBSERVACAO</code></td>
+<td>varchar(200)</td>
+<td>Não</td>
+<td>—</td>
+<td>Observação. Opcional.</td>
+</tr>
+</tbody>
+</table>
+<h3 id="plano">PLANO</h3>
+<p><code>PLANO = @ID_PLANO + [TP_MENSAL | TP_TRIMESTRAL | TP_SEMESTRAL | TP_ANUAL | TP_DIARIA] + VL_PLANO + [TP_RECORRENTE | TP_POR_CONTRATO | TP_NA_HORA] + (QT_MESES)</code></p>
+<p><strong>Leitura:</strong> @ID_PLANO é o identificador único (chave primária substituta, gerada pelo sistema). Os itens entre ( ) são opcionais. [TP_MENSAL | TP_TRIMESTRAL | TP_SEMESTRAL | TP_ANUAL | TP_DIARIA] exige escolher um valor para TP_PLANO. [TP_RECORRENTE | TP_POR_CONTRATO | TP_NA_HORA] exige escolher um valor para TP_COBRANCA.</p>
+<table>
+<thead>
+<tr>
+<th>Atributo</th>
+<th>Tipo físico</th>
+<th>Obrigatório</th>
+<th>Restrições e valor padrão</th>
+<th>Significado e relevância</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>ID_PLANO</code></td>
+<td>integer</td>
+<td>Sim (PK)</td>
+<td>AUTO_INCREMENT; PRIMARY KEY</td>
+<td>Identificador do registro; não sofre operação matemática.</td>
+</tr>
+<tr>
+<td><code>TP_PLANO</code></td>
+<td>varchar(12)</td>
+<td>Sim (escolha)</td>
+<td>CHECK IN (mensal, trimestral, semestral, anual, diaria)</td>
+<td>Tipo do plano. Diária é o pagamento na hora.</td>
+</tr>
+<tr>
+<td><code>QT_MESES</code></td>
+<td>INT</td>
+<td>Não</td>
+<td>CHECK &gt;= 0</td>
+<td>Duração em meses. 1, 3, 6 ou 12; vazia na diária.</td>
+</tr>
+<tr>
+<td><code>VL_PLANO</code></td>
+<td>decimal(10,2)</td>
+<td>Sim</td>
+<td>CHECK &gt; 0</td>
+<td>Valor do plano. Maior que zero.</td>
+</tr>
+<tr>
+<td><code>TP_COBRANCA</code></td>
+<td>varchar(16)</td>
+<td>Sim (escolha)</td>
+<td>CHECK IN (recorrente, por_contrato, na_hora)</td>
+<td>Forma de cobrança do plano. Na modalidade na hora, o aluno paga apenas os dias ou meses efetivamente treinados.</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Índices:</strong> PK ID_PLANO (clusterizado).</p>
+<h3 id="promocao">PROMOCAO</h3>
+<p><code>PROMOCAO = @ID_PROMOCAO + DS_PROMOCAO + DS_BENEFICIO + DT_MES_VIGENCIA</code></p>
+<p><strong>Leitura:</strong> @ID_PROMOCAO é o identificador único (chave primária substituta, gerada pelo sistema).</p>
+<table>
+<thead>
+<tr>
+<th>Atributo</th>
+<th>Tipo físico</th>
+<th>Obrigatório</th>
+<th>Restrições e valor padrão</th>
+<th>Significado e relevância</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>ID_PROMOCAO</code></td>
+<td>integer</td>
+<td>Sim (PK)</td>
+<td>AUTO_INCREMENT; PRIMARY KEY</td>
+<td>Identificador do registro; não sofre operação matemática.</td>
+</tr>
+<tr>
+<td><code>DS_PROMOCAO</code></td>
+<td>varchar(200)</td>
+<td>Sim</td>
+<td>—</td>
+<td>Descrição da promoção. Obrigatória.</td>
+</tr>
+<tr>
+<td><code>DS_BENEFICIO</code></td>
+<td>varchar(200)</td>
+<td>Sim</td>
+<td>—</td>
+<td>Benefício concedido. Ex.: cadeira de massagem; trazer um amigo para treinar um mês grátis.</td>
+</tr>
+<tr>
+<td><code>DT_MES_VIGENCIA</code></td>
+<td>DATE</td>
+<td>Sim</td>
+<td>—</td>
+<td>Mês em que a promoção vale (primeiro dia do mês). Cadastrada mensalmente; uma por vez em cada contrato.</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Índices:</strong> PK ID_PROMOCAO (clusterizado).</p>
+<h3 id="contrato">CONTRATO</h3>
+<p><code>CONTRATO = @ID_CONTRATO + ID_ALUNO + ID_PLANO + DT_INICIO + DT_FIM + [TP_VIGENTE | TP_TRANCADO | TP_CANCELADO | TP_ENCERRADO] + IN_TAXA_MATRICULA_COBRADA + (ID_PROMOCAO)</code></p>
+<p><strong>Leitura:</strong> @ID_CONTRATO é o identificador único (chave primária substituta, gerada pelo sistema). ID_ALUNO referencia ALUNO (obrigatório; assina). ID_PLANO referencia PLANO (obrigatório; define). ID_PROMOCAO referencia PROMOCAO (opcional; beneficia). Os itens entre ( ) são opcionais. [TP_VIGENTE | TP_TRANCADO | TP_CANCELADO | TP_ENCERRADO] exige escolher um valor para TP_SITUACAO.</p>
+<table>
+<thead>
+<tr>
+<th>Atributo</th>
+<th>Tipo físico</th>
+<th>Obrigatório</th>
+<th>Restrições e valor padrão</th>
+<th>Significado e relevância</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>ID_CONTRATO</code></td>
+<td>integer</td>
+<td>Sim (PK)</td>
+<td>AUTO_INCREMENT; PRIMARY KEY</td>
+<td>Identificador do registro; não sofre operação matemática.</td>
+</tr>
+<tr>
+<td><code>ID_ALUNO</code></td>
+<td>integer</td>
+<td>Sim (FK)</td>
+<td>FOREIGN KEY → ALUNO(ID_ALUNO); ON DELETE RESTRICT</td>
+<td>Referência a ALUNO (assina).</td>
+</tr>
+<tr>
+<td><code>ID_PLANO</code></td>
+<td>integer</td>
+<td>Sim (FK)</td>
+<td>FOREIGN KEY → PLANO(ID_PLANO); ON DELETE RESTRICT</td>
+<td>Referência a PLANO (define).</td>
+</tr>
+<tr>
+<td><code>ID_PROMOCAO</code></td>
+<td>integer</td>
+<td>Não (FK)</td>
+<td>FOREIGN KEY → PROMOCAO(ID_PROMOCAO); ON DELETE RESTRICT</td>
+<td>Referência a PROMOCAO (beneficia).</td>
+</tr>
+<tr>
+<td><code>DT_INICIO</code></td>
+<td>DATE</td>
+<td>Sim</td>
+<td>—</td>
+<td>Data de início. Obrigatória.</td>
+</tr>
+<tr>
+<td><code>DT_FIM</code></td>
+<td>DATE</td>
+<td>Sim</td>
+<td>—</td>
+<td>Data de término prevista. Derivada da duração do plano; ao término a catraca deve bloquear e o aluno é avisado 7 dias antes.</td>
+</tr>
+<tr>
+<td><code>TP_SITUACAO</code></td>
+<td>varchar(10)</td>
+<td>Sim (escolha)</td>
+<td>CHECK IN (vigente, trancado, cancelado, encerrado); DEFAULT 'vigente'</td>
+<td>Situação do contrato.</td>
+</tr>
+<tr>
+<td><code>IN_TAXA_MATRICULA_COBRADA</code></td>
+<td>BOOLEAN</td>
+<td>Sim</td>
+<td>DEFAULT 0</td>
+<td>Indica se a taxa de matrícula foi cobrada. Cobrada só na primeira adesão e em renovação após mais de 1 ano; renovação antes de 1 ano é isenta.</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Restrições da tabela:</strong> CHECK (DT_FIM &gt;= DT_INICIO).</p>
+<p><strong>Índices:</strong> PK ID_CONTRATO (clusterizado); em ID_ALUNO (listar CONTRATO de um ALUNO); em ID_PLANO (listar CONTRATO de um PLANO); em ID_PROMOCAO (listar CONTRATO de um PROMOCAO); índice em DT_FIM (planos que terminam em 7 dias, RF07).</p>
+<h3 id="trancamento">TRANCAMENTO</h3>
+<p><code>TRANCAMENTO = @ID_TRANCAMENTO + ID_CONTRATO + DT_INICIO + DT_FIM</code></p>
+<p><strong>Leitura:</strong> @ID_TRANCAMENTO é o identificador único (chave primária substituta, gerada pelo sistema). ID_CONTRATO referencia CONTRATO (obrigatório; sofre).</p>
+<table>
+<thead>
+<tr>
+<th>Atributo</th>
+<th>Tipo físico</th>
+<th>Obrigatório</th>
+<th>Restrições e valor padrão</th>
+<th>Significado e relevância</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>ID_TRANCAMENTO</code></td>
+<td>integer</td>
+<td>Sim (PK)</td>
+<td>AUTO_INCREMENT; PRIMARY KEY</td>
+<td>Identificador do registro; não sofre operação matemática.</td>
+</tr>
+<tr>
+<td><code>ID_CONTRATO</code></td>
+<td>integer</td>
+<td>Sim (FK)</td>
+<td>FOREIGN KEY → CONTRATO(ID_CONTRATO); ON DELETE RESTRICT</td>
+<td>Referência a CONTRATO (sofre).</td>
+</tr>
+<tr>
+<td><code>DT_INICIO</code></td>
+<td>DATE</td>
+<td>Sim</td>
+<td>—</td>
+<td>Início do trancamento. Obrigatória.</td>
+</tr>
+<tr>
+<td><code>DT_FIM</code></td>
+<td>DATE</td>
+<td>Sim</td>
+<td>—</td>
+<td>Fim do trancamento. No máximo 3 meses após o início.</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Restrições da tabela:</strong> CHECK (DT_FIM &gt;= DT_INICIO).</p>
+<p><strong>Índices:</strong> PK ID_TRANCAMENTO (clusterizado); em ID_CONTRATO (listar TRANCAMENTO de um CONTRATO).</p>
+<h3 id="cancelamento">CANCELAMENTO</h3>
+<p><code>CANCELAMENTO = @ID_CANCELAMENTO + ID_CONTRATO + DT_CANCELAMENTO + VL_MULTA + QT_MESES_UTILIZADOS</code></p>
+<p><strong>Leitura:</strong> @ID_CANCELAMENTO é o identificador único (chave primária substituta, gerada pelo sistema). ID_CONTRATO referencia CONTRATO (obrigatório, único: garante o 1:1; encerrado por).</p>
+<table>
+<thead>
+<tr>
+<th>Atributo</th>
+<th>Tipo físico</th>
+<th>Obrigatório</th>
+<th>Restrições e valor padrão</th>
+<th>Significado e relevância</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>ID_CANCELAMENTO</code></td>
+<td>integer</td>
+<td>Sim (PK)</td>
+<td>AUTO_INCREMENT; PRIMARY KEY</td>
+<td>Identificador do registro; não sofre operação matemática.</td>
+</tr>
+<tr>
+<td><code>ID_CONTRATO</code></td>
+<td>integer</td>
+<td>Sim (FK, único)</td>
+<td>FOREIGN KEY → CONTRATO(ID_CONTRATO); ON DELETE RESTRICT; UNIQUE</td>
+<td>Referência a CONTRATO (encerrado por).</td>
+</tr>
+<tr>
+<td><code>DT_CANCELAMENTO</code></td>
+<td>DATE</td>
+<td>Sim</td>
+<td>—</td>
+<td>Data do cancelamento. Obrigatória.</td>
+</tr>
+<tr>
+<td><code>VL_MULTA</code></td>
+<td>decimal(10,2)</td>
+<td>Sim</td>
+<td>CHECK &gt;= 0</td>
+<td>Multa do plano. Calculada conforme o plano contratado.</td>
+</tr>
+<tr>
+<td><code>QT_MESES_UTILIZADOS</code></td>
+<td>INT</td>
+<td>Sim</td>
+<td>CHECK &gt;= 0</td>
+<td>Meses efetivamente utilizados. Cobrados no cancelamento.</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Índices:</strong> PK ID_CANCELAMENTO (clusterizado); único em ID_CONTRATO (garante o 1:1).</p>
+<h3 id="cobranca">COBRANCA</h3>
+<p><code>COBRANCA = @ID_COBRANCA + VL_COBRANCA + DT_VENCIMENTO + [TP_RECORRENTE | TP_POR_CONTRATO | TP_NAO_RECORRENTE] + [TP_EM_ABERTO | TP_PAGA | TP_ATRASADA] + (ID_CONTRATO) + (ID_VENDA)</code></p>
+<p><strong>Leitura:</strong> @ID_COBRANCA é o identificador único (chave primária substituta, gerada pelo sistema). ID_CONTRATO referencia CONTRATO (opcional; gera). ID_VENDA referencia VENDA (opcional; gera). Os itens entre ( ) são opcionais. [TP_RECORRENTE | TP_POR_CONTRATO | TP_NAO_RECORRENTE] exige escolher um valor para TP_COBRANCA. [TP_EM_ABERTO | TP_PAGA | TP_ATRASADA] exige escolher um valor para TP_SITUACAO.</p>
+<table>
+<thead>
+<tr>
+<th>Atributo</th>
+<th>Tipo físico</th>
+<th>Obrigatório</th>
+<th>Restrições e valor padrão</th>
+<th>Significado e relevância</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>ID_COBRANCA</code></td>
+<td>integer</td>
+<td>Sim (PK)</td>
+<td>AUTO_INCREMENT; PRIMARY KEY</td>
+<td>Identificador do registro; não sofre operação matemática.</td>
+</tr>
+<tr>
+<td><code>ID_CONTRATO</code></td>
+<td>integer</td>
+<td>Não (FK)</td>
+<td>FOREIGN KEY → CONTRATO(ID_CONTRATO); ON DELETE RESTRICT</td>
+<td>Referência a CONTRATO (gera).</td>
+</tr>
+<tr>
+<td><code>ID_VENDA</code></td>
+<td>integer</td>
+<td>Não (FK)</td>
+<td>FOREIGN KEY → VENDA(ID_VENDA); ON DELETE RESTRICT</td>
+<td>Referência a VENDA (gera).</td>
+</tr>
+<tr>
+<td><code>VL_COBRANCA</code></td>
+<td>decimal(10,2)</td>
+<td>Sim</td>
+<td>CHECK &gt; 0</td>
+<td>Valor devido. Maior que zero.</td>
+</tr>
+<tr>
+<td><code>DT_VENCIMENTO</code></td>
+<td>DATE</td>
+<td>Sim</td>
+<td>—</td>
+<td>Data de vencimento. Obrigatória.</td>
+</tr>
+<tr>
+<td><code>TP_COBRANCA</code></td>
+<td>varchar(16)</td>
+<td>Sim (escolha)</td>
+<td>CHECK IN (recorrente, por_contrato, nao_recorrente)</td>
+<td>Tipo de cobrança. Recorrente é automática.</td>
+</tr>
+<tr>
+<td><code>TP_SITUACAO</code></td>
+<td>varchar(10)</td>
+<td>Sim (escolha)</td>
+<td>CHECK IN (em_aberto, paga, atrasada); DEFAULT 'em_aberto'</td>
+<td>Situação da cobrança. Atrasada deve bloquear o aluno.</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Restrições da tabela:</strong> CHECK ((ID_CONTRATO IS NOT NULL AND ID_VENDA IS NULL) OR (ID_CONTRATO IS NULL AND ID_VENDA IS NOT NULL)).</p>
+<p><strong>Índices:</strong> PK ID_COBRANCA (clusterizado); em ID_CONTRATO (listar COBRANCA de um CONTRATO); em ID_VENDA (listar COBRANCA de um VENDA); índice composto em (TP_SITUACAO, DT_VENCIMENTO) (inadimplentes para bloqueio e cobrança).</p>
+<h3 id="pagamento">PAGAMENTO</h3>
+<p><code>PAGAMENTO = @ID_PAGAMENTO + ID_COBRANCA + DT_PAGAMENTO + VL_PAGO + [TP_CREDITO | TP_DEBITO | TP_PIX | TP_DINHEIRO]</code></p>
+<p><strong>Leitura:</strong> @ID_PAGAMENTO é o identificador único (chave primária substituta, gerada pelo sistema). ID_COBRANCA referencia COBRANCA (obrigatório; quitada por). [TP_CREDITO | TP_DEBITO | TP_PIX | TP_DINHEIRO] exige escolher um valor para TP_FORMA.</p>
+<table>
+<thead>
+<tr>
+<th>Atributo</th>
+<th>Tipo físico</th>
+<th>Obrigatório</th>
+<th>Restrições e valor padrão</th>
+<th>Significado e relevância</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>ID_PAGAMENTO</code></td>
+<td>integer</td>
+<td>Sim (PK)</td>
+<td>AUTO_INCREMENT; PRIMARY KEY</td>
+<td>Identificador do registro; não sofre operação matemática.</td>
+</tr>
+<tr>
+<td><code>ID_COBRANCA</code></td>
+<td>integer</td>
+<td>Sim (FK)</td>
+<td>FOREIGN KEY → COBRANCA(ID_COBRANCA); ON DELETE RESTRICT</td>
+<td>Referência a COBRANCA (quitada por).</td>
+</tr>
+<tr>
+<td><code>DT_PAGAMENTO</code></td>
+<td>DATETIME</td>
+<td>Sim</td>
+<td>DEFAULT CURRENT_TIMESTAMP</td>
+<td>Data e hora do pagamento. Obrigatória.</td>
+</tr>
+<tr>
+<td><code>VL_PAGO</code></td>
+<td>decimal(10,2)</td>
+<td>Sim</td>
+<td>CHECK &gt; 0</td>
+<td>Valor pago. Maior que zero.</td>
+</tr>
+<tr>
+<td><code>TP_FORMA</code></td>
+<td>varchar(10)</td>
+<td>Sim (escolha)</td>
+<td>CHECK IN (credito, debito, pix, dinheiro)</td>
+<td>Forma de pagamento.</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Índices:</strong> PK ID_PAGAMENTO (clusterizado); em ID_COBRANCA (listar PAGAMENTO de um COBRANCA).</p>
+<h3 id="nota_fiscal">NOTA_FISCAL</h3>
+<p><code>NOTA_FISCAL = @ID_NOTA_FISCAL + ID_PAGAMENTO + NR_NOTA + DT_EMISSAO + IN_ENVIADA_WHATSAPP</code></p>
+<p><strong>Leitura:</strong> @ID_NOTA_FISCAL é o identificador único (chave primária substituta, gerada pelo sistema). ID_PAGAMENTO referencia PAGAMENTO (obrigatório, único: garante o 1:1; documentado por).</p>
+<table>
+<thead>
+<tr>
+<th>Atributo</th>
+<th>Tipo físico</th>
+<th>Obrigatório</th>
+<th>Restrições e valor padrão</th>
+<th>Significado e relevância</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>ID_NOTA_FISCAL</code></td>
+<td>integer</td>
+<td>Sim (PK)</td>
+<td>AUTO_INCREMENT; PRIMARY KEY</td>
+<td>Identificador do registro; não sofre operação matemática.</td>
+</tr>
+<tr>
+<td><code>ID_PAGAMENTO</code></td>
+<td>integer</td>
+<td>Sim (FK, único)</td>
+<td>FOREIGN KEY → PAGAMENTO(ID_PAGAMENTO); ON DELETE RESTRICT; UNIQUE</td>
+<td>Referência a PAGAMENTO (documentado por).</td>
+</tr>
+<tr>
+<td><code>NR_NOTA</code></td>
+<td>varchar(20)</td>
+<td>Sim (único)</td>
+<td>UNIQUE</td>
+<td>Número da nota. Único.</td>
+</tr>
+<tr>
+<td><code>DT_EMISSAO</code></td>
+<td>DATE</td>
+<td>Sim</td>
+<td>—</td>
+<td>Data de emissão. Obrigatória.</td>
+</tr>
+<tr>
+<td><code>IN_ENVIADA_WHATSAPP</code></td>
+<td>BOOLEAN</td>
+<td>Sim</td>
+<td>DEFAULT 0</td>
+<td>Indica o envio por WhatsApp. Sim ou não.</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Índices:</strong> PK ID_NOTA_FISCAL (clusterizado); único em NR_NOTA (evita duplicidade); único em ID_PAGAMENTO (garante o 1:1).</p>
+<h3 id="registro_acesso">REGISTRO_ACESSO</h3>
+<p><code>REGISTRO_ACESSO = @ID_REGISTRO_ACESSO + ID_ALUNO + DT_ACESSO + [TP_FACIAL | TP_SENHA | TP_MANUAL] + [TP_PERMITIDO | TP_NEGADO] + (ID_FUNCIONARIO) + (DS_MOTIVO_BLOQUEIO)</code></p>
+<p><strong>Leitura:</strong> @ID_REGISTRO_ACESSO é o identificador único (chave primária substituta, gerada pelo sistema). ID_ALUNO referencia ALUNO (obrigatório; realiza). ID_FUNCIONARIO referencia FUNCIONARIO (opcional; libera manualmente). Os itens entre ( ) são opcionais. [TP_FACIAL | TP_SENHA | TP_MANUAL] exige escolher um valor para TP_METODO. [TP_PERMITIDO | TP_NEGADO] exige escolher um valor para TP_RESULTADO.</p>
+<table>
+<thead>
+<tr>
+<th>Atributo</th>
+<th>Tipo físico</th>
+<th>Obrigatório</th>
+<th>Restrições e valor padrão</th>
+<th>Significado e relevância</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>ID_REGISTRO_ACESSO</code></td>
+<td>integer</td>
+<td>Sim (PK)</td>
+<td>AUTO_INCREMENT; PRIMARY KEY</td>
+<td>Identificador do registro; não sofre operação matemática.</td>
+</tr>
+<tr>
+<td><code>ID_ALUNO</code></td>
+<td>integer</td>
+<td>Sim (FK)</td>
+<td>FOREIGN KEY → ALUNO(ID_ALUNO); ON DELETE RESTRICT</td>
+<td>Referência a ALUNO (realiza).</td>
+</tr>
+<tr>
+<td><code>ID_FUNCIONARIO</code></td>
+<td>integer</td>
+<td>Não (FK)</td>
+<td>FOREIGN KEY → FUNCIONARIO(ID_FUNCIONARIO); ON DELETE RESTRICT</td>
+<td>Referência a FUNCIONARIO (libera manualmente).</td>
+</tr>
+<tr>
+<td><code>DT_ACESSO</code></td>
+<td>DATETIME</td>
+<td>Sim</td>
+<td>DEFAULT CURRENT_TIMESTAMP</td>
+<td>Data e hora da tentativa de entrada. Obrigatória.</td>
+</tr>
+<tr>
+<td><code>TP_METODO</code></td>
+<td>varchar(8)</td>
+<td>Sim (escolha)</td>
+<td>CHECK IN (facial, senha, manual)</td>
+<td>Meio de identificação.</td>
+</tr>
+<tr>
+<td><code>TP_RESULTADO</code></td>
+<td>varchar(10)</td>
+<td>Sim (escolha)</td>
+<td>CHECK IN (permitido, negado)</td>
+<td>Resultado da tentativa. Permitido não pode ocorrer com plano encerrado ou aluno bloqueado (falha atual da catraca).</td>
+</tr>
+<tr>
+<td><code>DS_MOTIVO_BLOQUEIO</code></td>
+<td>varchar(100)</td>
+<td>Não</td>
+<td>—</td>
+<td>Motivo da negação. Plano encerrado ou aluno bloqueado.</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Restrições da tabela:</strong> UNIQUE (ID_ALUNO, DT_ACESSO).</p>
+<p><strong>Índices:</strong> PK ID_REGISTRO_ACESSO (clusterizado); único composto em (ID_ALUNO, DT_ACESSO) (impede repetição de negócio); em ID_ALUNO (listar REGISTRO_ACESSO de um ALUNO); em ID_FUNCIONARIO (listar REGISTRO_ACESSO de um FUNCIONARIO); índice composto em (ID_ALUNO, DT_ACESSO) (frequência do aluno).</p>
+<h3 id="notificacao">NOTIFICACAO</h3>
+<p><code>NOTIFICACAO = @ID_NOTIFICACAO + ID_ALUNO + DT_ENVIO + [TP_TERMINO_PLANO | TP_NOVO_TREINO] + (DS_CANAL)</code></p>
+<p><strong>Leitura:</strong> @ID_NOTIFICACAO é o identificador único (chave primária substituta, gerada pelo sistema). ID_ALUNO referencia ALUNO (obrigatório; recebe). Os itens entre ( ) são opcionais. [TP_TERMINO_PLANO | TP_NOVO_TREINO] exige escolher um valor para TP_NOTIFICACAO.</p>
+<table>
+<thead>
+<tr>
+<th>Atributo</th>
+<th>Tipo físico</th>
+<th>Obrigatório</th>
+<th>Restrições e valor padrão</th>
+<th>Significado e relevância</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>ID_NOTIFICACAO</code></td>
+<td>integer</td>
+<td>Sim (PK)</td>
+<td>AUTO_INCREMENT; PRIMARY KEY</td>
+<td>Identificador do registro; não sofre operação matemática.</td>
+</tr>
+<tr>
+<td><code>ID_ALUNO</code></td>
+<td>integer</td>
+<td>Sim (FK)</td>
+<td>FOREIGN KEY → ALUNO(ID_ALUNO); ON DELETE RESTRICT</td>
+<td>Referência a ALUNO (recebe).</td>
+</tr>
+<tr>
+<td><code>DT_ENVIO</code></td>
+<td>DATETIME</td>
+<td>Sim</td>
+<td>DEFAULT CURRENT_TIMESTAMP</td>
+<td>Data de envio. Obrigatória.</td>
+</tr>
+<tr>
+<td><code>TP_NOTIFICACAO</code></td>
+<td>varchar(14)</td>
+<td>Sim (escolha)</td>
+<td>CHECK IN (termino_plano, novo_treino)</td>
+<td>Tipo de aviso. Término do plano é enviado 7 dias antes.</td>
+</tr>
+<tr>
+<td><code>DS_CANAL</code></td>
+<td>varchar(30)</td>
+<td>Não</td>
+<td>—</td>
+<td>Meio de envio. Definir na etapa seguinte.</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Índices:</strong> PK ID_NOTIFICACAO (clusterizado); em ID_ALUNO (listar NOTIFICACAO de um ALUNO).</p>
+<h3 id="perfil">PERFIL</h3>
+<p><code>PERFIL = @ID_PERFIL + NM_PERFIL</code></p>
+<p><strong>Leitura:</strong> @ID_PERFIL é o identificador único (chave primária substituta, gerada pelo sistema).</p>
+<table>
+<thead>
+<tr>
+<th>Atributo</th>
+<th>Tipo físico</th>
+<th>Obrigatório</th>
+<th>Restrições e valor padrão</th>
+<th>Significado e relevância</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>ID_PERFIL</code></td>
+<td>integer</td>
+<td>Sim (PK)</td>
+<td>AUTO_INCREMENT; PRIMARY KEY</td>
+<td>Identificador do registro; não sofre operação matemática.</td>
+</tr>
+<tr>
+<td><code>NM_PERFIL</code></td>
+<td>varchar(20)</td>
+<td>Sim (único)</td>
+<td>UNIQUE</td>
+<td>Nome do perfil. recepcionista, professor ou gerente.</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Índices:</strong> PK ID_PERFIL (clusterizado); único em NM_PERFIL (evita duplicidade).</p>
+<h3 id="permissao">PERMISSAO</h3>
+<p><code>PERMISSAO = @ID_PERMISSAO + NM_MODULO + TP_ACAO</code></p>
+<p><strong>Leitura:</strong> @ID_PERMISSAO é o identificador único (chave primária substituta, gerada pelo sistema).</p>
+<table>
+<thead>
+<tr>
+<th>Atributo</th>
+<th>Tipo físico</th>
+<th>Obrigatório</th>
+<th>Restrições e valor padrão</th>
+<th>Significado e relevância</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>ID_PERMISSAO</code></td>
+<td>integer</td>
+<td>Sim (PK)</td>
+<td>AUTO_INCREMENT; PRIMARY KEY</td>
+<td>Identificador do registro; não sofre operação matemática.</td>
+</tr>
+<tr>
+<td><code>NM_MODULO</code></td>
+<td>varchar(40)</td>
+<td>Sim</td>
+<td>—</td>
+<td>Módulo do sistema. Ex.: alunos, financeiro, acesso, treinos, equipamentos.</td>
+</tr>
+<tr>
+<td><code>TP_ACAO</code></td>
+<td>varchar(20)</td>
+<td>Sim</td>
+<td>—</td>
+<td>Ação permitida. Ex.: ler, inserir, atualizar, liberar_manual.</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Restrições da tabela:</strong> UNIQUE (NM_MODULO, TP_ACAO).</p>
+<p><strong>Índices:</strong> PK ID_PERMISSAO (clusterizado); único composto em (NM_MODULO, TP_ACAO) (impede repetição de negócio).</p>
+<h3 id="perfil_permissao">PERFIL_PERMISSAO</h3>
+<p><code>PERFIL_PERMISSAO = @ID_PERFIL_PERMISSAO + ID_PERFIL + ID_PERMISSAO</code></p>
+<p><strong>Leitura:</strong> @ID_PERFIL_PERMISSAO é o identificador único (chave primária substituta, gerada pelo sistema). ID_PERFIL referencia PERFIL (obrigatório; concede). ID_PERMISSAO referencia PERMISSAO (obrigatório; é concedida em).</p>
+<table>
+<thead>
+<tr>
+<th>Atributo</th>
+<th>Tipo físico</th>
+<th>Obrigatório</th>
+<th>Restrições e valor padrão</th>
+<th>Significado e relevância</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>ID_PERFIL_PERMISSAO</code></td>
+<td>integer</td>
+<td>Sim (PK)</td>
+<td>AUTO_INCREMENT; PRIMARY KEY</td>
+<td>Identificador do registro; não sofre operação matemática.</td>
+</tr>
+<tr>
+<td><code>ID_PERFIL</code></td>
+<td>integer</td>
+<td>Sim (FK)</td>
+<td>FOREIGN KEY → PERFIL(ID_PERFIL); ON DELETE RESTRICT</td>
+<td>Referência a PERFIL (concede).</td>
+</tr>
+<tr>
+<td><code>ID_PERMISSAO</code></td>
+<td>integer</td>
+<td>Sim (FK)</td>
+<td>FOREIGN KEY → PERMISSAO(ID_PERMISSAO); ON DELETE RESTRICT</td>
+<td>Referência a PERMISSAO (é concedida em).</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Restrições da tabela:</strong> UNIQUE (ID_PERFIL, ID_PERMISSAO).</p>
+<p><strong>Índices:</strong> PK ID_PERFIL_PERMISSAO (clusterizado); único composto em (ID_PERFIL, ID_PERMISSAO) (impede repetição de negócio); em ID_PERFIL (listar PERFIL_PERMISSAO de um PERFIL); em ID_PERMISSAO (listar PERFIL_PERMISSAO de um PERMISSAO).</p>
+<h3 id="funcionario">FUNCIONARIO</h3>
+<p><code>FUNCIONARIO = @ID_FUNCIONARIO + ID_PERFIL + ID_MATRICULA + NM_FUNCIONARIO + DS_SENHA_HASH + IN_ATIVO + (DS_BIOMETRIA_FACIAL)</code></p>
+<p><strong>Leitura:</strong> @ID_FUNCIONARIO é o identificador único (chave primária substituta, gerada pelo sistema). ID_PERFIL referencia PERFIL (obrigatório; classifica). Os itens entre ( ) são opcionais.</p>
+<table>
+<thead>
+<tr>
+<th>Atributo</th>
+<th>Tipo físico</th>
+<th>Obrigatório</th>
+<th>Restrições e valor padrão</th>
+<th>Significado e relevância</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>ID_FUNCIONARIO</code></td>
+<td>integer</td>
+<td>Sim (PK)</td>
+<td>AUTO_INCREMENT; PRIMARY KEY</td>
+<td>Identificador do registro; não sofre operação matemática.</td>
+</tr>
+<tr>
+<td><code>ID_PERFIL</code></td>
+<td>integer</td>
+<td>Sim (FK)</td>
+<td>FOREIGN KEY → PERFIL(ID_PERFIL); ON DELETE RESTRICT</td>
+<td>Referência a PERFIL (classifica).</td>
+</tr>
+<tr>
+<td><code>ID_MATRICULA</code></td>
+<td>varchar(20)</td>
+<td>Sim (único)</td>
+<td>UNIQUE</td>
+<td>Matrícula do funcionário. Única.</td>
+</tr>
+<tr>
+<td><code>NM_FUNCIONARIO</code></td>
+<td>varchar(120)</td>
+<td>Sim</td>
+<td>—</td>
+<td>Nome do funcionário. Obrigatório.</td>
+</tr>
+<tr>
+<td><code>DS_SENHA_HASH</code></td>
+<td>varchar(255)</td>
+<td>Sim</td>
+<td>—</td>
+<td>Senha individual, guardada em hash. Nunca em texto aberto.</td>
+</tr>
+<tr>
+<td><code>DS_BIOMETRIA_FACIAL</code></td>
+<td>BLOB</td>
+<td>Não</td>
+<td>—</td>
+<td>Modelo biométrico facial para o ponto. Dado sensível (LGPD).</td>
+</tr>
+<tr>
+<td><code>IN_ATIVO</code></td>
+<td>BOOLEAN</td>
+<td>Sim</td>
+<td>DEFAULT TRUE</td>
+<td>Indica se o funcionário está em atividade. Desligado fica inativo, sem apagar o histórico.</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Índices:</strong> PK ID_FUNCIONARIO (clusterizado); único em ID_MATRICULA (evita duplicidade); em ID_PERFIL (listar FUNCIONARIO de um PERFIL).</p>
+<h3 id="professor">PROFESSOR</h3>
+<p><code>PROFESSOR = @ID_PROFESSOR + ID_FUNCIONARIO + ID_CREF + QT_MESES_EXPERIENCIA + DS_RESULTADO_ENTREVISTA + DS_CONHECIMENTO_AREA</code></p>
+<p><strong>Leitura:</strong> @ID_PROFESSOR é o identificador único (chave primária substituta, gerada pelo sistema). ID_FUNCIONARIO referencia FUNCIONARIO (obrigatório, único: garante o 1:1; pode ser).</p>
+<table>
+<thead>
+<tr>
+<th>Atributo</th>
+<th>Tipo físico</th>
+<th>Obrigatório</th>
+<th>Restrições e valor padrão</th>
+<th>Significado e relevância</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>ID_PROFESSOR</code></td>
+<td>integer</td>
+<td>Sim (PK)</td>
+<td>AUTO_INCREMENT; PRIMARY KEY</td>
+<td>Identificador do registro; não sofre operação matemática.</td>
+</tr>
+<tr>
+<td><code>ID_FUNCIONARIO</code></td>
+<td>integer</td>
+<td>Sim (FK, único)</td>
+<td>FOREIGN KEY → FUNCIONARIO(ID_FUNCIONARIO); ON DELETE RESTRICT; UNIQUE</td>
+<td>Referência a FUNCIONARIO (pode ser).</td>
+</tr>
+<tr>
+<td><code>ID_CREF</code></td>
+<td>varchar(20)</td>
+<td>Sim (único)</td>
+<td>UNIQUE</td>
+<td>Registro do professor no CREF. Obrigatório e único; todos os professores têm registro.</td>
+</tr>
+<tr>
+<td><code>QT_MESES_EXPERIENCIA</code></td>
+<td>INT</td>
+<td>Sim</td>
+<td>CHECK &gt;= 0</td>
+<td>Tempo de experiência em meses. Obrigatório.</td>
+</tr>
+<tr>
+<td><code>DS_RESULTADO_ENTREVISTA</code></td>
+<td>varchar(200)</td>
+<td>Sim</td>
+<td>—</td>
+<td>Resultado da entrevista de seleção. Obrigatório.</td>
+</tr>
+<tr>
+<td><code>DS_CONHECIMENTO_AREA</code></td>
+<td>TEXT</td>
+<td>Sim</td>
+<td>—</td>
+<td>Conhecimento na área. Obrigatório.</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Índices:</strong> PK ID_PROFESSOR (clusterizado); único em ID_CREF (evita duplicidade); único em ID_FUNCIONARIO (garante o 1:1).</p>
+<h3 id="escala_trabalho">ESCALA_TRABALHO</h3>
+<p><code>ESCALA_TRABALHO = @ID_ESCALA_TRABALHO + ID_FUNCIONARIO + [TP_MANHA | TP_TARDE | TP_NOITE] + IN_REFORCO + (QT_HORAS_DIA)</code></p>
+<p><strong>Leitura:</strong> @ID_ESCALA_TRABALHO é o identificador único (chave primária substituta, gerada pelo sistema). ID_FUNCIONARIO referencia FUNCIONARIO (obrigatório; cumpre). Os itens entre ( ) são opcionais. [TP_MANHA | TP_TARDE | TP_NOITE] exige escolher um valor para TP_TURNO.</p>
+<table>
+<thead>
+<tr>
+<th>Atributo</th>
+<th>Tipo físico</th>
+<th>Obrigatório</th>
+<th>Restrições e valor padrão</th>
+<th>Significado e relevância</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>ID_ESCALA_TRABALHO</code></td>
+<td>integer</td>
+<td>Sim (PK)</td>
+<td>AUTO_INCREMENT; PRIMARY KEY</td>
+<td>Identificador do registro; não sofre operação matemática.</td>
+</tr>
+<tr>
+<td><code>ID_FUNCIONARIO</code></td>
+<td>integer</td>
+<td>Sim (FK)</td>
+<td>FOREIGN KEY → FUNCIONARIO(ID_FUNCIONARIO); ON DELETE RESTRICT</td>
+<td>Referência a FUNCIONARIO (cumpre).</td>
+</tr>
+<tr>
+<td><code>TP_TURNO</code></td>
+<td>varchar(6)</td>
+<td>Sim (escolha)</td>
+<td>CHECK IN (manha, tarde, noite)</td>
+<td>Turno de trabalho. Recepção: um por turno e uma de reforço; geralmente duas pela manhã.</td>
+</tr>
+<tr>
+<td><code>IN_REFORCO</code></td>
+<td>BOOLEAN</td>
+<td>Sim</td>
+<td>DEFAULT 0</td>
+<td>Indica a recepcionista que ajuda quando precisa. Sim ou não.</td>
+</tr>
+<tr>
+<td><code>QT_HORAS_DIA</code></td>
+<td>INT</td>
+<td>Não</td>
+<td>CHECK &gt;= 0</td>
+<td>Horas de trabalho por dia. Professores de musculação: 5 horas.</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Índices:</strong> PK ID_ESCALA_TRABALHO (clusterizado); em ID_FUNCIONARIO (listar ESCALA_TRABALHO de um FUNCIONARIO).</p>
+<h3 id="ponto">PONTO</h3>
+<p><code>PONTO = @ID_PONTO + ID_FUNCIONARIO + DT_ENTRADA + (DT_SAIDA)</code></p>
+<p><strong>Leitura:</strong> @ID_PONTO é o identificador único (chave primária substituta, gerada pelo sistema). ID_FUNCIONARIO referencia FUNCIONARIO (obrigatório; registra). Os itens entre ( ) são opcionais.</p>
+<table>
+<thead>
+<tr>
+<th>Atributo</th>
+<th>Tipo físico</th>
+<th>Obrigatório</th>
+<th>Restrições e valor padrão</th>
+<th>Significado e relevância</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>ID_PONTO</code></td>
+<td>integer</td>
+<td>Sim (PK)</td>
+<td>AUTO_INCREMENT; PRIMARY KEY</td>
+<td>Identificador do registro; não sofre operação matemática.</td>
+</tr>
+<tr>
+<td><code>ID_FUNCIONARIO</code></td>
+<td>integer</td>
+<td>Sim (FK)</td>
+<td>FOREIGN KEY → FUNCIONARIO(ID_FUNCIONARIO); ON DELETE RESTRICT</td>
+<td>Referência a FUNCIONARIO (registra).</td>
+</tr>
+<tr>
+<td><code>DT_ENTRADA</code></td>
+<td>DATETIME</td>
+<td>Sim</td>
+<td>—</td>
+<td>Data e hora de entrada. Obrigatória.</td>
+</tr>
+<tr>
+<td><code>DT_SAIDA</code></td>
+<td>DATETIME</td>
+<td>Não</td>
+<td>—</td>
+<td>Data e hora de saída. Jornada de 5 horas por dia para professores.</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Restrições da tabela:</strong> UNIQUE (ID_FUNCIONARIO, DT_ENTRADA); CHECK (DT_SAIDA IS NULL OR DT_SAIDA &gt;= DT_ENTRADA).</p>
+<p><strong>Índices:</strong> PK ID_PONTO (clusterizado); único composto em (ID_FUNCIONARIO, DT_ENTRADA) (impede repetição de negócio); em ID_FUNCIONARIO (listar PONTO de um FUNCIONARIO); índice composto em (ID_FUNCIONARIO, DT_ENTRADA) (jornada).</p>
+<h3 id="avaliacao_fisica">AVALIACAO_FISICA</h3>
+<p><code>AVALIACAO_FISICA = @ID_AVALIACAO_FISICA + ID_ALUNO + ID_PROFESSOR + DT_AVALIACAO + [TP_BIOIMPEDANCIA | TP_ADIPOMETRO] + [TP_AGENDADA | TP_REALIZADA] + (VL_GORDURA_ACUMULADA) + (VL_MASSA_MAGRA) + (VL_AGUA) + (DS_DOBRAS_CUTANEAS)</code></p>
+<p><strong>Leitura:</strong> @ID_AVALIACAO_FISICA é o identificador único (chave primária substituta, gerada pelo sistema). ID_ALUNO referencia ALUNO (obrigatório; realiza). ID_PROFESSOR referencia PROFESSOR (obrigatório; conduz). Os itens entre ( ) são opcionais. [TP_BIOIMPEDANCIA | TP_ADIPOMETRO] exige escolher um valor para TP_METODO. [TP_AGENDADA | TP_REALIZADA] exige escolher um valor para TP_SITUACAO.</p>
+<table>
+<thead>
+<tr>
+<th>Atributo</th>
+<th>Tipo físico</th>
+<th>Obrigatório</th>
+<th>Restrições e valor padrão</th>
+<th>Significado e relevância</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>ID_AVALIACAO_FISICA</code></td>
+<td>integer</td>
+<td>Sim (PK)</td>
+<td>AUTO_INCREMENT; PRIMARY KEY</td>
+<td>Identificador do registro; não sofre operação matemática.</td>
+</tr>
+<tr>
+<td><code>ID_ALUNO</code></td>
+<td>integer</td>
+<td>Sim (FK)</td>
+<td>FOREIGN KEY → ALUNO(ID_ALUNO); ON DELETE RESTRICT</td>
+<td>Referência a ALUNO (realiza).</td>
+</tr>
+<tr>
+<td><code>ID_PROFESSOR</code></td>
+<td>integer</td>
+<td>Sim (FK)</td>
+<td>FOREIGN KEY → PROFESSOR(ID_PROFESSOR); ON DELETE RESTRICT</td>
+<td>Referência a PROFESSOR (conduz).</td>
+</tr>
+<tr>
+<td><code>DT_AVALIACAO</code></td>
+<td>DATETIME</td>
+<td>Sim</td>
+<td>—</td>
+<td>Data da avaliação. Obrigatória.</td>
+</tr>
+<tr>
+<td><code>TP_METODO</code></td>
+<td>varchar(15)</td>
+<td>Sim (escolha)</td>
+<td>CHECK IN (bioimpedancia, adipometro)</td>
+<td>Método de medição.</td>
+</tr>
+<tr>
+<td><code>VL_GORDURA_ACUMULADA</code></td>
+<td>decimal(5,2)</td>
+<td>Não</td>
+<td>CHECK &gt;= 0</td>
+<td>Gordura acumulada. Registrada na bioimpedância; dado de saúde (LGPD).</td>
+</tr>
+<tr>
+<td><code>VL_MASSA_MAGRA</code></td>
+<td>decimal(5,2)</td>
+<td>Não</td>
+<td>CHECK &gt;= 0</td>
+<td>Massa magra. Registrada na bioimpedância.</td>
+</tr>
+<tr>
+<td><code>VL_AGUA</code></td>
+<td>decimal(5,2)</td>
+<td>Não</td>
+<td>CHECK &gt;= 0</td>
+<td>Quantidade de água. Registrada na bioimpedância.</td>
+</tr>
+<tr>
+<td><code>DS_DOBRAS_CUTANEAS</code></td>
+<td>TEXT</td>
+<td>Não</td>
+<td>—</td>
+<td>Dobras cutâneas. Registradas manualmente no adipômetro.</td>
+</tr>
+<tr>
+<td><code>TP_SITUACAO</code></td>
+<td>varchar(9)</td>
+<td>Sim (escolha)</td>
+<td>CHECK IN (agendada, realizada); DEFAULT 'agendada'</td>
+<td>Situação do agendamento.</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Índices:</strong> PK ID_AVALIACAO_FISICA (clusterizado); em ID_ALUNO (listar AVALIACAO_FISICA de um ALUNO); em ID_PROFESSOR (listar AVALIACAO_FISICA de um PROFESSOR).</p>
+<h3 id="ficha_treino">FICHA_TREINO</h3>
+<p><code>FICHA_TREINO = @ID_FICHA_TREINO + ID_ALUNO + ID_PROFESSOR + DT_CRIACAO + DT_TROCA_PREVISTA + (DS_DIFICULDADES)</code></p>
+<p><strong>Leitura:</strong> @ID_FICHA_TREINO é o identificador único (chave primária substituta, gerada pelo sistema). ID_ALUNO referencia ALUNO (obrigatório; possui). ID_PROFESSOR referencia PROFESSOR (obrigatório; elabora). Os itens entre ( ) são opcionais.</p>
+<table>
+<thead>
+<tr>
+<th>Atributo</th>
+<th>Tipo físico</th>
+<th>Obrigatório</th>
+<th>Restrições e valor padrão</th>
+<th>Significado e relevância</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>ID_FICHA_TREINO</code></td>
+<td>integer</td>
+<td>Sim (PK)</td>
+<td>AUTO_INCREMENT; PRIMARY KEY</td>
+<td>Identificador do registro; não sofre operação matemática.</td>
+</tr>
+<tr>
+<td><code>ID_ALUNO</code></td>
+<td>integer</td>
+<td>Sim (FK)</td>
+<td>FOREIGN KEY → ALUNO(ID_ALUNO); ON DELETE RESTRICT</td>
+<td>Referência a ALUNO (possui).</td>
+</tr>
+<tr>
+<td><code>ID_PROFESSOR</code></td>
+<td>integer</td>
+<td>Sim (FK)</td>
+<td>FOREIGN KEY → PROFESSOR(ID_PROFESSOR); ON DELETE RESTRICT</td>
+<td>Referência a PROFESSOR (elabora).</td>
+</tr>
+<tr>
+<td><code>DT_CRIACAO</code></td>
+<td>DATE</td>
+<td>Sim</td>
+<td>—</td>
+<td>Data de criação. Obrigatória.</td>
+</tr>
+<tr>
+<td><code>DS_DIFICULDADES</code></td>
+<td>TEXT</td>
+<td>Não</td>
+<td>—</td>
+<td>Dificuldades relatadas pelo aluno. Registradas na conversa com o professor antes de montar o treino.</td>
+</tr>
+<tr>
+<td><code>DT_TROCA_PREVISTA</code></td>
+<td>DATE</td>
+<td>Sim</td>
+<td>—</td>
+<td>Data prevista de troca. A cada 3 meses.</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Índices:</strong> PK ID_FICHA_TREINO (clusterizado); em ID_ALUNO (listar FICHA_TREINO de um ALUNO); em ID_PROFESSOR (listar FICHA_TREINO de um PROFESSOR).</p>
+<h3 id="treino">TREINO</h3>
+<p><code>TREINO = @ID_TREINO + ID_FICHA_TREINO + [TP_A | TP_B | TP_C]</code></p>
+<p><strong>Leitura:</strong> @ID_TREINO é o identificador único (chave primária substituta, gerada pelo sistema). ID_FICHA_TREINO referencia FICHA_TREINO (obrigatório; divide em). [TP_A | TP_B | TP_C] exige escolher um valor para TP_LETRA.</p>
+<table>
+<thead>
+<tr>
+<th>Atributo</th>
+<th>Tipo físico</th>
+<th>Obrigatório</th>
+<th>Restrições e valor padrão</th>
+<th>Significado e relevância</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>ID_TREINO</code></td>
+<td>integer</td>
+<td>Sim (PK)</td>
+<td>AUTO_INCREMENT; PRIMARY KEY</td>
+<td>Identificador do registro; não sofre operação matemática.</td>
+</tr>
+<tr>
+<td><code>ID_FICHA_TREINO</code></td>
+<td>integer</td>
+<td>Sim (FK)</td>
+<td>FOREIGN KEY → FICHA_TREINO(ID_FICHA_TREINO); ON DELETE RESTRICT</td>
+<td>Referência a FICHA_TREINO (divide em).</td>
+</tr>
+<tr>
+<td><code>TP_LETRA</code></td>
+<td>char(1)</td>
+<td>Sim (escolha)</td>
+<td>CHECK IN (a, b, c)</td>
+<td>Letra do treino.</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Restrições da tabela:</strong> UNIQUE (ID_FICHA_TREINO, TP_LETRA).</p>
+<p><strong>Índices:</strong> PK ID_TREINO (clusterizado); único composto em (ID_FICHA_TREINO, TP_LETRA) (impede repetição de negócio); em ID_FICHA_TREINO (listar TREINO de um FICHA_TREINO).</p>
+<h3 id="exercicio">EXERCICIO</h3>
+<p><code>EXERCICIO = @ID_EXERCICIO + NM_EXERCICIO + DS_GRUPO_MUSCULAR + (DS_VIDEO_EXECUCAO) + (NM_APARELHO)</code></p>
+<p><strong>Leitura:</strong> @ID_EXERCICIO é o identificador único (chave primária substituta, gerada pelo sistema). Os itens entre ( ) são opcionais.</p>
+<table>
+<thead>
+<tr>
+<th>Atributo</th>
+<th>Tipo físico</th>
+<th>Obrigatório</th>
+<th>Restrições e valor padrão</th>
+<th>Significado e relevância</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>ID_EXERCICIO</code></td>
+<td>integer</td>
+<td>Sim (PK)</td>
+<td>AUTO_INCREMENT; PRIMARY KEY</td>
+<td>Identificador do registro; não sofre operação matemática.</td>
+</tr>
+<tr>
+<td><code>NM_EXERCICIO</code></td>
+<td>varchar(100)</td>
+<td>Sim (único)</td>
+<td>UNIQUE</td>
+<td>Nome do exercício. Único.</td>
+</tr>
+<tr>
+<td><code>DS_GRUPO_MUSCULAR</code></td>
+<td>varchar(60)</td>
+<td>Sim</td>
+<td>—</td>
+<td>Grupo muscular trabalhado. Obrigatório.</td>
+</tr>
+<tr>
+<td><code>DS_VIDEO_EXECUCAO</code></td>
+<td>varchar(255)</td>
+<td>Não</td>
+<td>—</td>
+<td>Endereço do vídeo de execução. Disponível no aplicativo.</td>
+</tr>
+<tr>
+<td><code>NM_APARELHO</code></td>
+<td>varchar(100)</td>
+<td>Não</td>
+<td>—</td>
+<td>Aparelho usado no exercício. Vazio quando não usa aparelho.</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Índices:</strong> PK ID_EXERCICIO (clusterizado); único em NM_EXERCICIO (evita duplicidade).</p>
+<h3 id="treino_exercicio">TREINO_EXERCICIO</h3>
+<p><code>TREINO_EXERCICIO = @ID_TREINO_EXERCICIO + ID_TREINO + ID_EXERCICIO + QT_ORDEM + QT_SERIES + QT_REPETICOES</code></p>
+<p><strong>Leitura:</strong> @ID_TREINO_EXERCICIO é o identificador único (chave primária substituta, gerada pelo sistema). ID_TREINO referencia TREINO (obrigatório; contém). ID_EXERCICIO referencia EXERCICIO (obrigatório; compõe).</p>
+<table>
+<thead>
+<tr>
+<th>Atributo</th>
+<th>Tipo físico</th>
+<th>Obrigatório</th>
+<th>Restrições e valor padrão</th>
+<th>Significado e relevância</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>ID_TREINO_EXERCICIO</code></td>
+<td>integer</td>
+<td>Sim (PK)</td>
+<td>AUTO_INCREMENT; PRIMARY KEY</td>
+<td>Identificador do registro; não sofre operação matemática.</td>
+</tr>
+<tr>
+<td><code>ID_TREINO</code></td>
+<td>integer</td>
+<td>Sim (FK)</td>
+<td>FOREIGN KEY → TREINO(ID_TREINO); ON DELETE RESTRICT</td>
+<td>Referência a TREINO (contém).</td>
+</tr>
+<tr>
+<td><code>ID_EXERCICIO</code></td>
+<td>integer</td>
+<td>Sim (FK)</td>
+<td>FOREIGN KEY → EXERCICIO(ID_EXERCICIO); ON DELETE RESTRICT</td>
+<td>Referência a EXERCICIO (compõe).</td>
+</tr>
+<tr>
+<td><code>QT_ORDEM</code></td>
+<td>INT</td>
+<td>Sim</td>
+<td>CHECK &gt; 0</td>
+<td>Ordem do exercício no treino. Obrigatória.</td>
+</tr>
+<tr>
+<td><code>QT_SERIES</code></td>
+<td>INT</td>
+<td>Sim</td>
+<td>CHECK &gt; 0</td>
+<td>Número de séries. Maior que zero.</td>
+</tr>
+<tr>
+<td><code>QT_REPETICOES</code></td>
+<td>INT</td>
+<td>Sim</td>
+<td>CHECK &gt; 0</td>
+<td>Número de repetições. Maior que zero.</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Restrições da tabela:</strong> UNIQUE (ID_TREINO, QT_ORDEM).</p>
+<p><strong>Índices:</strong> PK ID_TREINO_EXERCICIO (clusterizado); único composto em (ID_TREINO, QT_ORDEM) (impede repetição de negócio); em ID_TREINO (listar TREINO_EXERCICIO de um TREINO); em ID_EXERCICIO (listar TREINO_EXERCICIO de um EXERCICIO).</p>
+<h3 id="registro_carga">REGISTRO_CARGA</h3>
+<p><code>REGISTRO_CARGA = @ID_REGISTRO_CARGA + ID_TREINO_EXERCICIO + DT_REGISTRO + VL_CARGA</code></p>
+<p><strong>Leitura:</strong> @ID_REGISTRO_CARGA é o identificador único (chave primária substituta, gerada pelo sistema). ID_TREINO_EXERCICIO referencia TREINO_EXERCICIO (obrigatório; tem).</p>
+<table>
+<thead>
+<tr>
+<th>Atributo</th>
+<th>Tipo físico</th>
+<th>Obrigatório</th>
+<th>Restrições e valor padrão</th>
+<th>Significado e relevância</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>ID_REGISTRO_CARGA</code></td>
+<td>integer</td>
+<td>Sim (PK)</td>
+<td>AUTO_INCREMENT; PRIMARY KEY</td>
+<td>Identificador do registro; não sofre operação matemática.</td>
+</tr>
+<tr>
+<td><code>ID_TREINO_EXERCICIO</code></td>
+<td>integer</td>
+<td>Sim (FK)</td>
+<td>FOREIGN KEY → TREINO_EXERCICIO(ID_TREINO_EXERCICIO); ON DELETE RESTRICT</td>
+<td>Referência a TREINO_EXERCICIO (tem).</td>
+</tr>
+<tr>
+<td><code>DT_REGISTRO</code></td>
+<td>DATE</td>
+<td>Sim</td>
+<td>—</td>
+<td>Data do registro. A cada 3 meses.</td>
+</tr>
+<tr>
+<td><code>VL_CARGA</code></td>
+<td>decimal(6,2)</td>
+<td>Sim</td>
+<td>CHECK &gt;= 0</td>
+<td>Carga utilizada. Maior que zero.</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Índices:</strong> PK ID_REGISTRO_CARGA (clusterizado); em ID_TREINO_EXERCICIO (listar REGISTRO_CARGA de um TREINO_EXERCICIO).</p>
+<h3 id="modalidade">MODALIDADE</h3>
+<p><code>MODALIDADE = @ID_MODALIDADE + NM_MODALIDADE</code></p>
+<p><strong>Leitura:</strong> @ID_MODALIDADE é o identificador único (chave primária substituta, gerada pelo sistema).</p>
+<table>
+<thead>
+<tr>
+<th>Atributo</th>
+<th>Tipo físico</th>
+<th>Obrigatório</th>
+<th>Restrições e valor padrão</th>
+<th>Significado e relevância</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>ID_MODALIDADE</code></td>
+<td>integer</td>
+<td>Sim (PK)</td>
+<td>AUTO_INCREMENT; PRIMARY KEY</td>
+<td>Identificador do registro; não sofre operação matemática.</td>
+</tr>
+<tr>
+<td><code>NM_MODALIDADE</code></td>
+<td>varchar(20)</td>
+<td>Sim (único)</td>
+<td>UNIQUE</td>
+<td>Nome da modalidade. STEP ou PILATES.</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Índices:</strong> PK ID_MODALIDADE (clusterizado); único em NM_MODALIDADE (evita duplicidade).</p>
+<h3 id="aula_coletiva">AULA_COLETIVA</h3>
+<p><code>AULA_COLETIVA = @ID_AULA_COLETIVA + ID_MODALIDADE + ID_PROFESSOR + [TP_SEG | TP_TER | TP_QUA | TP_QUI | TP_SEX | TP_SAB] + HR_INICIO + QT_CAPACIDADE_MAXIMA</code></p>
+<p><strong>Leitura:</strong> @ID_AULA_COLETIVA é o identificador único (chave primária substituta, gerada pelo sistema). ID_MODALIDADE referencia MODALIDADE (obrigatório; classifica). ID_PROFESSOR referencia PROFESSOR (obrigatório; ministra). [TP_SEG | TP_TER | TP_QUA | TP_QUI | TP_SEX | TP_SAB] exige escolher um valor para TP_DIA_SEMANA.</p>
+<table>
+<thead>
+<tr>
+<th>Atributo</th>
+<th>Tipo físico</th>
+<th>Obrigatório</th>
+<th>Restrições e valor padrão</th>
+<th>Significado e relevância</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>ID_AULA_COLETIVA</code></td>
+<td>integer</td>
+<td>Sim (PK)</td>
+<td>AUTO_INCREMENT; PRIMARY KEY</td>
+<td>Identificador do registro; não sofre operação matemática.</td>
+</tr>
+<tr>
+<td><code>ID_MODALIDADE</code></td>
+<td>integer</td>
+<td>Sim (FK)</td>
+<td>FOREIGN KEY → MODALIDADE(ID_MODALIDADE); ON DELETE RESTRICT</td>
+<td>Referência a MODALIDADE (classifica).</td>
+</tr>
+<tr>
+<td><code>ID_PROFESSOR</code></td>
+<td>integer</td>
+<td>Sim (FK)</td>
+<td>FOREIGN KEY → PROFESSOR(ID_PROFESSOR); ON DELETE RESTRICT</td>
+<td>Referência a PROFESSOR (ministra).</td>
+</tr>
+<tr>
+<td><code>TP_DIA_SEMANA</code></td>
+<td>varchar(3)</td>
+<td>Sim (escolha)</td>
+<td>CHECK IN (seg, ter, qua, qui, sex, sab)</td>
+<td>Dia da semana. Dentro do horário de funcionamento.</td>
+</tr>
+<tr>
+<td><code>HR_INICIO</code></td>
+<td>TIME</td>
+<td>Sim</td>
+<td>—</td>
+<td>Hora de início. Obrigatória.</td>
+</tr>
+<tr>
+<td><code>QT_CAPACIDADE_MAXIMA</code></td>
+<td>INT</td>
+<td>Sim</td>
+<td>CHECK &gt; 0</td>
+<td>Máximo de participantes. 30 pessoas.</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Restrições da tabela:</strong> UNIQUE (ID_MODALIDADE, TP_DIA_SEMANA, HR_INICIO).</p>
+<p><strong>Índices:</strong> PK ID_AULA_COLETIVA (clusterizado); único composto em (ID_MODALIDADE, TP_DIA_SEMANA, HR_INICIO) (impede repetição de negócio); em ID_MODALIDADE (listar AULA_COLETIVA de um MODALIDADE); em ID_PROFESSOR (listar AULA_COLETIVA de um PROFESSOR); índice composto em (TP_DIA_SEMANA, HR_INICIO) (consulta por turno).</p>
+<h3 id="agendamento_aula">AGENDAMENTO_AULA</h3>
+<p><code>AGENDAMENTO_AULA = @ID_AGENDAMENTO_AULA + ID_AULA_COLETIVA + ID_ALUNO + DT_AULA + DT_AGENDAMENTO + (IN_PRESENTE)</code></p>
+<p><strong>Leitura:</strong> @ID_AGENDAMENTO_AULA é o identificador único (chave primária substituta, gerada pelo sistema). ID_AULA_COLETIVA referencia AULA_COLETIVA (obrigatório; recebe). ID_ALUNO referencia ALUNO (obrigatório; faz). Os itens entre ( ) são opcionais.</p>
+<table>
+<thead>
+<tr>
+<th>Atributo</th>
+<th>Tipo físico</th>
+<th>Obrigatório</th>
+<th>Restrições e valor padrão</th>
+<th>Significado e relevância</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>ID_AGENDAMENTO_AULA</code></td>
+<td>integer</td>
+<td>Sim (PK)</td>
+<td>AUTO_INCREMENT; PRIMARY KEY</td>
+<td>Identificador do registro; não sofre operação matemática.</td>
+</tr>
+<tr>
+<td><code>ID_AULA_COLETIVA</code></td>
+<td>integer</td>
+<td>Sim (FK)</td>
+<td>FOREIGN KEY → AULA_COLETIVA(ID_AULA_COLETIVA); ON DELETE RESTRICT</td>
+<td>Referência a AULA_COLETIVA (recebe).</td>
+</tr>
+<tr>
+<td><code>ID_ALUNO</code></td>
+<td>integer</td>
+<td>Sim (FK)</td>
+<td>FOREIGN KEY → ALUNO(ID_ALUNO); ON DELETE RESTRICT</td>
+<td>Referência a ALUNO (faz).</td>
+</tr>
+<tr>
+<td><code>DT_AULA</code></td>
+<td>DATETIME</td>
+<td>Sim</td>
+<td>—</td>
+<td>Data e hora de início da aula agendada. Uma ocorrência da aula semanal; máximo de 30 agendamentos por ocorrência.</td>
+</tr>
+<tr>
+<td><code>DT_AGENDAMENTO</code></td>
+<td>DATETIME</td>
+<td>Sim</td>
+<td>DEFAULT CURRENT_TIMESTAMP</td>
+<td>Data e hora do agendamento. Permitido até 20 minutos antes do início.</td>
+</tr>
+<tr>
+<td><code>IN_PRESENTE</code></td>
+<td>BOOLEAN</td>
+<td>Não</td>
+<td>—</td>
+<td>Presença do aluno. Sem penalidade por atraso.</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Restrições da tabela:</strong> UNIQUE (ID_ALUNO, ID_AULA_COLETIVA, DT_AULA).</p>
+<p><strong>Índices:</strong> PK ID_AGENDAMENTO_AULA (clusterizado); único composto em (ID_ALUNO, ID_AULA_COLETIVA, DT_AULA) (impede repetição de negócio); em ID_AULA_COLETIVA (listar AGENDAMENTO_AULA de um AULA_COLETIVA); em ID_ALUNO (listar AGENDAMENTO_AULA de um ALUNO).</p>
+<h3 id="produto">PRODUTO</h3>
+<p><code>PRODUTO = @ID_PRODUTO + NM_PRODUTO + TP_CATEGORIA + VL_PRECO</code></p>
+<p><strong>Leitura:</strong> @ID_PRODUTO é o identificador único (chave primária substituta, gerada pelo sistema).</p>
+<table>
+<thead>
+<tr>
+<th>Atributo</th>
+<th>Tipo físico</th>
+<th>Obrigatório</th>
+<th>Restrições e valor padrão</th>
+<th>Significado e relevância</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>ID_PRODUTO</code></td>
+<td>integer</td>
+<td>Sim (PK)</td>
+<td>AUTO_INCREMENT; PRIMARY KEY</td>
+<td>Identificador do registro; não sofre operação matemática.</td>
+</tr>
+<tr>
+<td><code>NM_PRODUTO</code></td>
+<td>varchar(100)</td>
+<td>Sim (único)</td>
+<td>UNIQUE</td>
+<td>Nome do produto. Único.</td>
+</tr>
+<tr>
+<td><code>TP_CATEGORIA</code></td>
+<td>varchar(40)</td>
+<td>Sim</td>
+<td>—</td>
+<td>Categoria. Suplementos.</td>
+</tr>
+<tr>
+<td><code>VL_PRECO</code></td>
+<td>decimal(10,2)</td>
+<td>Sim</td>
+<td>CHECK &gt; 0</td>
+<td>Preço de venda. Maior que zero.</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Índices:</strong> PK ID_PRODUTO (clusterizado); único em NM_PRODUTO (evita duplicidade).</p>
+<h3 id="lote_produto">LOTE_PRODUTO</h3>
+<p><code>LOTE_PRODUTO = @ID_LOTE_PRODUTO + ID_PRODUTO + ID_COMPRA + DT_VALIDADE + QT_RECEBIDA + VL_CUSTO_UNITARIO</code></p>
+<p><strong>Leitura:</strong> @ID_LOTE_PRODUTO é o identificador único (chave primária substituta, gerada pelo sistema). ID_PRODUTO referencia PRODUTO (obrigatório; possui). ID_COMPRA referencia COMPRA (obrigatório; recebe).</p>
+<table>
+<thead>
+<tr>
+<th>Atributo</th>
+<th>Tipo físico</th>
+<th>Obrigatório</th>
+<th>Restrições e valor padrão</th>
+<th>Significado e relevância</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>ID_LOTE_PRODUTO</code></td>
+<td>integer</td>
+<td>Sim (PK)</td>
+<td>AUTO_INCREMENT; PRIMARY KEY</td>
+<td>Identificador do registro; não sofre operação matemática.</td>
+</tr>
+<tr>
+<td><code>ID_PRODUTO</code></td>
+<td>integer</td>
+<td>Sim (FK)</td>
+<td>FOREIGN KEY → PRODUTO(ID_PRODUTO); ON DELETE RESTRICT</td>
+<td>Referência a PRODUTO (possui).</td>
+</tr>
+<tr>
+<td><code>ID_COMPRA</code></td>
+<td>integer</td>
+<td>Sim (FK)</td>
+<td>FOREIGN KEY → COMPRA(ID_COMPRA); ON DELETE RESTRICT</td>
+<td>Referência a COMPRA (recebe).</td>
+</tr>
+<tr>
+<td><code>DT_VALIDADE</code></td>
+<td>DATE</td>
+<td>Sim</td>
+<td>—</td>
+<td>Data de validade. Controle hoje manual; deve ser conferida.</td>
+</tr>
+<tr>
+<td><code>QT_RECEBIDA</code></td>
+<td>INT</td>
+<td>Sim</td>
+<td>CHECK &gt; 0</td>
+<td>Quantidade recebida. Maior que zero.</td>
+</tr>
+<tr>
+<td><code>VL_CUSTO_UNITARIO</code></td>
+<td>decimal(10,2)</td>
+<td>Sim</td>
+<td>CHECK &gt;= 0</td>
+<td>Custo unitário de compra. Maior que zero.</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Índices:</strong> PK ID_LOTE_PRODUTO (clusterizado); em ID_PRODUTO (listar LOTE_PRODUTO de um PRODUTO); em ID_COMPRA (listar LOTE_PRODUTO de um COMPRA); índice em DT_VALIDADE (produtos a vencer, RF35).</p>
+<h3 id="compra">COMPRA</h3>
+<p><code>COMPRA = @ID_COMPRA + ID_FORNECEDOR + DT_COMPRA + VL_TOTAL</code></p>
+<p><strong>Leitura:</strong> @ID_COMPRA é o identificador único (chave primária substituta, gerada pelo sistema). ID_FORNECEDOR referencia FORNECEDOR (obrigatório; fornece em).</p>
+<table>
+<thead>
+<tr>
+<th>Atributo</th>
+<th>Tipo físico</th>
+<th>Obrigatório</th>
+<th>Restrições e valor padrão</th>
+<th>Significado e relevância</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>ID_COMPRA</code></td>
+<td>integer</td>
+<td>Sim (PK)</td>
+<td>AUTO_INCREMENT; PRIMARY KEY</td>
+<td>Identificador do registro; não sofre operação matemática.</td>
+</tr>
+<tr>
+<td><code>ID_FORNECEDOR</code></td>
+<td>integer</td>
+<td>Sim (FK)</td>
+<td>FOREIGN KEY → FORNECEDOR(ID_FORNECEDOR); ON DELETE RESTRICT</td>
+<td>Referência a FORNECEDOR (fornece em).</td>
+</tr>
+<tr>
+<td><code>DT_COMPRA</code></td>
+<td>DATETIME</td>
+<td>Sim</td>
+<td>DEFAULT CURRENT_TIMESTAMP</td>
+<td>Data e hora da compra. Obrigatória.</td>
+</tr>
+<tr>
+<td><code>VL_TOTAL</code></td>
+<td>decimal(10,2)</td>
+<td>Sim</td>
+<td>CHECK &gt;= 0</td>
+<td>Valor total. Soma dos lotes.</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Índices:</strong> PK ID_COMPRA (clusterizado); em ID_FORNECEDOR (listar COMPRA de um FORNECEDOR).</p>
+<h3 id="fornecedor">FORNECEDOR</h3>
+<p><code>FORNECEDOR = @ID_FORNECEDOR + NM_FORNECEDOR + [TP_SUPLEMENTOS | TP_EQUIPAMENTOS | TP_PECAS] + (NR_CONTATO)</code></p>
+<p><strong>Leitura:</strong> @ID_FORNECEDOR é o identificador único (chave primária substituta, gerada pelo sistema). Os itens entre ( ) são opcionais. [TP_SUPLEMENTOS | TP_EQUIPAMENTOS | TP_PECAS] exige escolher um valor para TP_FORNECEDOR.</p>
+<table>
+<thead>
+<tr>
+<th>Atributo</th>
+<th>Tipo físico</th>
+<th>Obrigatório</th>
+<th>Restrições e valor padrão</th>
+<th>Significado e relevância</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>ID_FORNECEDOR</code></td>
+<td>integer</td>
+<td>Sim (PK)</td>
+<td>AUTO_INCREMENT; PRIMARY KEY</td>
+<td>Identificador do registro; não sofre operação matemática.</td>
+</tr>
+<tr>
+<td><code>NM_FORNECEDOR</code></td>
+<td>varchar(120)</td>
+<td>Sim (único)</td>
+<td>UNIQUE</td>
+<td>Nome do fornecedor. Único.</td>
+</tr>
+<tr>
+<td><code>TP_FORNECEDOR</code></td>
+<td>varchar(12)</td>
+<td>Sim (escolha)</td>
+<td>CHECK IN (suplementos, equipamentos, pecas)</td>
+<td>O que o fornecedor vende.</td>
+</tr>
+<tr>
+<td><code>NR_CONTATO</code></td>
+<td>varchar(20)</td>
+<td>Não</td>
+<td>—</td>
+<td>Contato. Opcional.</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Índices:</strong> PK ID_FORNECEDOR (clusterizado); único em NM_FORNECEDOR (evita duplicidade).</p>
+<h3 id="venda">VENDA</h3>
+<p><code>VENDA = @ID_VENDA + ID_FUNCIONARIO + DT_VENDA + VL_TOTAL + (ID_ALUNO)</code></p>
+<p><strong>Leitura:</strong> @ID_VENDA é o identificador único (chave primária substituta, gerada pelo sistema). ID_ALUNO referencia ALUNO (opcional; compra). ID_FUNCIONARIO referencia FUNCIONARIO (obrigatório; registra). Os itens entre ( ) são opcionais.</p>
+<table>
+<thead>
+<tr>
+<th>Atributo</th>
+<th>Tipo físico</th>
+<th>Obrigatório</th>
+<th>Restrições e valor padrão</th>
+<th>Significado e relevância</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>ID_VENDA</code></td>
+<td>integer</td>
+<td>Sim (PK)</td>
+<td>AUTO_INCREMENT; PRIMARY KEY</td>
+<td>Identificador do registro; não sofre operação matemática.</td>
+</tr>
+<tr>
+<td><code>ID_ALUNO</code></td>
+<td>integer</td>
+<td>Não (FK)</td>
+<td>FOREIGN KEY → ALUNO(ID_ALUNO); ON DELETE RESTRICT</td>
+<td>Referência a ALUNO (compra).</td>
+</tr>
+<tr>
+<td><code>ID_FUNCIONARIO</code></td>
+<td>integer</td>
+<td>Sim (FK)</td>
+<td>FOREIGN KEY → FUNCIONARIO(ID_FUNCIONARIO); ON DELETE RESTRICT</td>
+<td>Referência a FUNCIONARIO (registra).</td>
+</tr>
+<tr>
+<td><code>DT_VENDA</code></td>
+<td>DATETIME</td>
+<td>Sim</td>
+<td>DEFAULT CURRENT_TIMESTAMP</td>
+<td>Data e hora da venda. Obrigatória.</td>
+</tr>
+<tr>
+<td><code>VL_TOTAL</code></td>
+<td>decimal(10,2)</td>
+<td>Sim</td>
+<td>CHECK &gt;= 0</td>
+<td>Valor total. Soma dos itens.</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Índices:</strong> PK ID_VENDA (clusterizado); em ID_ALUNO (listar VENDA de um ALUNO); em ID_FUNCIONARIO (listar VENDA de um FUNCIONARIO).</p>
+<h3 id="item_venda">ITEM_VENDA</h3>
+<p><code>ITEM_VENDA = @ID_ITEM_VENDA + ID_VENDA + ID_PRODUTO + QT_VENDIDA + VL_PRECO_UNITARIO</code></p>
+<p><strong>Leitura:</strong> @ID_ITEM_VENDA é o identificador único (chave primária substituta, gerada pelo sistema). ID_VENDA referencia VENDA (obrigatório; contém). ID_PRODUTO referencia PRODUTO (obrigatório; vendido em).</p>
+<table>
+<thead>
+<tr>
+<th>Atributo</th>
+<th>Tipo físico</th>
+<th>Obrigatório</th>
+<th>Restrições e valor padrão</th>
+<th>Significado e relevância</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>ID_ITEM_VENDA</code></td>
+<td>integer</td>
+<td>Sim (PK)</td>
+<td>AUTO_INCREMENT; PRIMARY KEY</td>
+<td>Identificador do registro; não sofre operação matemática.</td>
+</tr>
+<tr>
+<td><code>ID_VENDA</code></td>
+<td>integer</td>
+<td>Sim (FK)</td>
+<td>FOREIGN KEY → VENDA(ID_VENDA); ON DELETE RESTRICT</td>
+<td>Referência a VENDA (contém).</td>
+</tr>
+<tr>
+<td><code>ID_PRODUTO</code></td>
+<td>integer</td>
+<td>Sim (FK)</td>
+<td>FOREIGN KEY → PRODUTO(ID_PRODUTO); ON DELETE RESTRICT</td>
+<td>Referência a PRODUTO (vendido em).</td>
+</tr>
+<tr>
+<td><code>QT_VENDIDA</code></td>
+<td>INT</td>
+<td>Sim</td>
+<td>CHECK &gt; 0</td>
+<td>Quantidade vendida. Maior que zero.</td>
+</tr>
+<tr>
+<td><code>VL_PRECO_UNITARIO</code></td>
+<td>decimal(10,2)</td>
+<td>Sim</td>
+<td>CHECK &gt;= 0</td>
+<td>Preço no momento da venda. Preserva o histórico de preços.</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Restrições da tabela:</strong> UNIQUE (ID_VENDA, ID_PRODUTO).</p>
+<p><strong>Índices:</strong> PK ID_ITEM_VENDA (clusterizado); único composto em (ID_VENDA, ID_PRODUTO) (impede repetição de negócio); em ID_VENDA (listar ITEM_VENDA de um VENDA); em ID_PRODUTO (listar ITEM_VENDA de um PRODUTO).</p>
+<h3 id="equipamento">EQUIPAMENTO</h3>
+<p><code>EQUIPAMENTO = @ID_EQUIPAMENTO + NM_EQUIPAMENTO + [TP_MAQUINA | TP_PESO_LIVRE | TP_ESTEIRA | TP_ESCADA | TP_BICICLETA] + DS_LOCALIZACAO + [TP_OPERACIONAL | TP_INTERDITADO] + (ID_FORNECEDOR) + (DT_AQUISICAO) + (DT_FIM_GARANTIA)</code></p>
+<p><strong>Leitura:</strong> @ID_EQUIPAMENTO é o identificador único (chave primária substituta, gerada pelo sistema). ID_FORNECEDOR referencia FORNECEDOR (opcional; vende). Os itens entre ( ) são opcionais. [TP_MAQUINA | TP_PESO_LIVRE | TP_ESTEIRA | TP_ESCADA | TP_BICICLETA] exige escolher um valor para TP_CATEGORIA. [TP_OPERACIONAL | TP_INTERDITADO] exige escolher um valor para TP_SITUACAO.</p>
+<table>
+<thead>
+<tr>
+<th>Atributo</th>
+<th>Tipo físico</th>
+<th>Obrigatório</th>
+<th>Restrições e valor padrão</th>
+<th>Significado e relevância</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>ID_EQUIPAMENTO</code></td>
+<td>integer</td>
+<td>Sim (PK)</td>
+<td>AUTO_INCREMENT; PRIMARY KEY</td>
+<td>Identificador do registro; não sofre operação matemática.</td>
+</tr>
+<tr>
+<td><code>ID_FORNECEDOR</code></td>
+<td>integer</td>
+<td>Não (FK)</td>
+<td>FOREIGN KEY → FORNECEDOR(ID_FORNECEDOR); ON DELETE RESTRICT</td>
+<td>Referência a FORNECEDOR (vende).</td>
+</tr>
+<tr>
+<td><code>NM_EQUIPAMENTO</code></td>
+<td>varchar(100)</td>
+<td>Sim</td>
+<td>—</td>
+<td>Nome do equipamento. Obrigatório; hoje não há código de patrimônio, então o sistema gera o identificador.</td>
+</tr>
+<tr>
+<td><code>TP_CATEGORIA</code></td>
+<td>varchar(12)</td>
+<td>Sim (escolha)</td>
+<td>CHECK IN (maquina, peso_livre, esteira, escada, bicicleta)</td>
+<td>Categoria do equipamento. Máquina e peso livre são de musculação; esteira, escada e bicicleta são aeróbicos.</td>
+</tr>
+<tr>
+<td><code>DS_LOCALIZACAO</code></td>
+<td>varchar(60)</td>
+<td>Sim</td>
+<td>—</td>
+<td>Local do equipamento na academia. A localização é conhecida e controlada.</td>
+</tr>
+<tr>
+<td><code>DT_AQUISICAO</code></td>
+<td>DATE</td>
+<td>Não</td>
+<td>—</td>
+<td>Data de aquisição. Base da garantia.</td>
+</tr>
+<tr>
+<td><code>DT_FIM_GARANTIA</code></td>
+<td>DATE</td>
+<td>Não</td>
+<td>—</td>
+<td>Fim da garantia do fabricante. Garantia de 1 ano; hoje sem controle de vencimento.</td>
+</tr>
+<tr>
+<td><code>TP_SITUACAO</code></td>
+<td>varchar(11)</td>
+<td>Sim (escolha)</td>
+<td>CHECK IN (operacional, interditado); DEFAULT 'operacional'</td>
+<td>Situação do equipamento. Quebrado fica interditado e sinalizado até o reparo e o teste de carga.</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Restrições da tabela:</strong> CHECK (DT_AQUISICAO IS NULL OR DT_FIM_GARANTIA IS NULL OR DT_FIM_GARANTIA &gt;= DT_AQUISICAO).</p>
+<p><strong>Índices:</strong> PK ID_EQUIPAMENTO (clusterizado); em ID_FORNECEDOR (listar EQUIPAMENTO de um FORNECEDOR); índice em TP_SITUACAO e em DT_FIM_GARANTIA (interditados e garantias a vencer).</p>
+<h3 id="rotina_manutencao">ROTINA_MANUTENCAO</h3>
+<p><code>ROTINA_MANUTENCAO = @ID_ROTINA_MANUTENCAO + DS_ROTINA + [TP_MAQUINA | TP_PESO_LIVRE | TP_ESTEIRA | TP_ESCADA | TP_BICICLETA] + [TP_DIARIA | TP_SEMANAL | TP_QUINZENAL | TP_MENSAL | TP_TRIMESTRAL] + [TP_EQUIPE_INTERNA | TP_EMPRESA_TERCEIRIZADA]</code></p>
+<p><strong>Leitura:</strong> @ID_ROTINA_MANUTENCAO é o identificador único (chave primária substituta, gerada pelo sistema). [TP_MAQUINA | TP_PESO_LIVRE | TP_ESTEIRA | TP_ESCADA | TP_BICICLETA] exige escolher um valor para TP_CATEGORIA_ALVO. [TP_DIARIA | TP_SEMANAL | TP_QUINZENAL | TP_MENSAL | TP_TRIMESTRAL] exige escolher um valor para TP_PERIODICIDADE. [TP_EQUIPE_INTERNA | TP_EMPRESA_TERCEIRIZADA] exige escolher um valor para TP_EXECUTOR.</p>
+<table>
+<thead>
+<tr>
+<th>Atributo</th>
+<th>Tipo físico</th>
+<th>Obrigatório</th>
+<th>Restrições e valor padrão</th>
+<th>Significado e relevância</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>ID_ROTINA_MANUTENCAO</code></td>
+<td>integer</td>
+<td>Sim (PK)</td>
+<td>AUTO_INCREMENT; PRIMARY KEY</td>
+<td>Identificador do registro; não sofre operação matemática.</td>
+</tr>
+<tr>
+<td><code>DS_ROTINA</code></td>
+<td>varchar(200)</td>
+<td>Sim</td>
+<td>—</td>
+<td>Descrição da rotina. Ex.: revisão técnica; lubrificação com silicone líquido; limpeza.</td>
+</tr>
+<tr>
+<td><code>TP_CATEGORIA_ALVO</code></td>
+<td>varchar(12)</td>
+<td>Sim (escolha)</td>
+<td>CHECK IN (maquina, peso_livre, esteira, escada, bicicleta)</td>
+<td>Categoria de equipamento a que se aplica.</td>
+</tr>
+<tr>
+<td><code>TP_PERIODICIDADE</code></td>
+<td>varchar(10)</td>
+<td>Sim (escolha)</td>
+<td>CHECK IN (diaria, semanal, quinzenal, mensal, trimestral)</td>
+<td>Periodicidade da rotina. Revisão técnica: mensal na musculação e quinzenal nos aeróbicos; revisão profunda a cada 3 meses.</td>
+</tr>
+<tr>
+<td><code>TP_EXECUTOR</code></td>
+<td>varchar(20)</td>
+<td>Sim (escolha)</td>
+<td>CHECK IN (equipe_interna, empresa_terceirizada)</td>
+<td>Quem executa. A revisão técnica é da empresa terceirizada contratada.</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Índices:</strong> PK ID_ROTINA_MANUTENCAO (clusterizado).</p>
+<h3 id="execucao_manutencao">EXECUCAO_MANUTENCAO</h3>
+<p><code>EXECUCAO_MANUTENCAO = @ID_EXECUCAO_MANUTENCAO + ID_EQUIPAMENTO + ID_ROTINA_MANUTENCAO + DT_EXECUCAO + (ID_ASSISTENCIA_TECNICA) + (VL_CUSTO) + (DS_RESULTADO)</code></p>
+<p><strong>Leitura:</strong> @ID_EXECUCAO_MANUTENCAO é o identificador único (chave primária substituta, gerada pelo sistema). ID_EQUIPAMENTO referencia EQUIPAMENTO (obrigatório; recebe). ID_ROTINA_MANUTENCAO referencia ROTINA_MANUTENCAO (obrigatório; define). ID_ASSISTENCIA_TECNICA referencia ASSISTENCIA_TECNICA (opcional; realiza revisão). Os itens entre ( ) são opcionais.</p>
+<table>
+<thead>
+<tr>
+<th>Atributo</th>
+<th>Tipo físico</th>
+<th>Obrigatório</th>
+<th>Restrições e valor padrão</th>
+<th>Significado e relevância</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>ID_EXECUCAO_MANUTENCAO</code></td>
+<td>integer</td>
+<td>Sim (PK)</td>
+<td>AUTO_INCREMENT; PRIMARY KEY</td>
+<td>Identificador do registro; não sofre operação matemática.</td>
+</tr>
+<tr>
+<td><code>ID_EQUIPAMENTO</code></td>
+<td>integer</td>
+<td>Sim (FK)</td>
+<td>FOREIGN KEY → EQUIPAMENTO(ID_EQUIPAMENTO); ON DELETE RESTRICT</td>
+<td>Referência a EQUIPAMENTO (recebe).</td>
+</tr>
+<tr>
+<td><code>ID_ROTINA_MANUTENCAO</code></td>
+<td>integer</td>
+<td>Sim (FK)</td>
+<td>FOREIGN KEY → ROTINA_MANUTENCAO(ID_ROTINA_MANUTENCAO); ON DELETE RESTRICT</td>
+<td>Referência a ROTINA_MANUTENCAO (define).</td>
+</tr>
+<tr>
+<td><code>ID_ASSISTENCIA_TECNICA</code></td>
+<td>integer</td>
+<td>Não (FK)</td>
+<td>FOREIGN KEY → ASSISTENCIA_TECNICA(ID_ASSISTENCIA_TECNICA); ON DELETE RESTRICT</td>
+<td>Referência a ASSISTENCIA_TECNICA (realiza revisão).</td>
+</tr>
+<tr>
+<td><code>DT_EXECUCAO</code></td>
+<td>DATE</td>
+<td>Sim</td>
+<td>—</td>
+<td>Data da execução. Obrigatória.</td>
+</tr>
+<tr>
+<td><code>VL_CUSTO</code></td>
+<td>decimal(10,2)</td>
+<td>Não</td>
+<td>CHECK &gt;= 0</td>
+<td>Custo da execução. Vazio quando coberto pelo contrato com a empresa terceirizada.</td>
+</tr>
+<tr>
+<td><code>DS_RESULTADO</code></td>
+<td>TEXT</td>
+<td>Não</td>
+<td>—</td>
+<td>Resultado ou observações. Ex.: cabo com desgaste, ruído novo detectado.</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Índices:</strong> PK ID_EXECUCAO_MANUTENCAO (clusterizado); em ID_EQUIPAMENTO (listar EXECUCAO_MANUTENCAO de um EQUIPAMENTO); em ID_ROTINA_MANUTENCAO (listar EXECUCAO_MANUTENCAO de um ROTINA_MANUTENCAO); em ID_ASSISTENCIA_TECNICA (listar EXECUCAO_MANUTENCAO de um ASSISTENCIA_TECNICA).</p>
+<h3 id="inspecao_equipamento">INSPECAO_EQUIPAMENTO</h3>
+<p><code>INSPECAO_EQUIPAMENTO = @ID_INSPECAO_EQUIPAMENTO + ID_EQUIPAMENTO + DT_INSPECAO + [TP_CABO | TP_POLIA | TP_ESTOFADO | TP_ESTRUTURA] + [TP_BOA | TP_ATENCAO | TP_RUIM] + (ID_FUNCIONARIO) + (DS_OBSERVACAO)</code></p>
+<p><strong>Leitura:</strong> @ID_INSPECAO_EQUIPAMENTO é o identificador único (chave primária substituta, gerada pelo sistema). ID_EQUIPAMENTO referencia EQUIPAMENTO (obrigatório; passa por). ID_FUNCIONARIO referencia FUNCIONARIO (opcional; realiza). Os itens entre ( ) são opcionais. [TP_CABO | TP_POLIA | TP_ESTOFADO | TP_ESTRUTURA] exige escolher um valor para TP_COMPONENTE. [TP_BOA | TP_ATENCAO | TP_RUIM] exige escolher um valor para TP_CONDICAO.</p>
+<table>
+<thead>
+<tr>
+<th>Atributo</th>
+<th>Tipo físico</th>
+<th>Obrigatório</th>
+<th>Restrições e valor padrão</th>
+<th>Significado e relevância</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>ID_INSPECAO_EQUIPAMENTO</code></td>
+<td>integer</td>
+<td>Sim (PK)</td>
+<td>AUTO_INCREMENT; PRIMARY KEY</td>
+<td>Identificador do registro; não sofre operação matemática.</td>
+</tr>
+<tr>
+<td><code>ID_EQUIPAMENTO</code></td>
+<td>integer</td>
+<td>Sim (FK)</td>
+<td>FOREIGN KEY → EQUIPAMENTO(ID_EQUIPAMENTO); ON DELETE RESTRICT</td>
+<td>Referência a EQUIPAMENTO (passa por).</td>
+</tr>
+<tr>
+<td><code>ID_FUNCIONARIO</code></td>
+<td>integer</td>
+<td>Não (FK)</td>
+<td>FOREIGN KEY → FUNCIONARIO(ID_FUNCIONARIO); ON DELETE RESTRICT</td>
+<td>Referência a FUNCIONARIO (realiza).</td>
+</tr>
+<tr>
+<td><code>DT_INSPECAO</code></td>
+<td>DATETIME</td>
+<td>Sim</td>
+<td>DEFAULT CURRENT_TIMESTAMP</td>
+<td>Data e hora da inspeção. Diária.</td>
+</tr>
+<tr>
+<td><code>TP_COMPONENTE</code></td>
+<td>varchar(10)</td>
+<td>Sim (escolha)</td>
+<td>CHECK IN (cabo, polia, estofado, estrutura)</td>
+<td>Componente inspecionado.</td>
+</tr>
+<tr>
+<td><code>TP_CONDICAO</code></td>
+<td>varchar(8)</td>
+<td>Sim (escolha)</td>
+<td>CHECK IN (boa, atencao, ruim)</td>
+<td>Condição encontrada. Cabos e estofados são as informações mais importantes para a gerência.</td>
+</tr>
+<tr>
+<td><code>DS_OBSERVACAO</code></td>
+<td>varchar(200)</td>
+<td>Não</td>
+<td>—</td>
+<td>Observação. Opcional.</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Índices:</strong> PK ID_INSPECAO_EQUIPAMENTO (clusterizado); em ID_EQUIPAMENTO (listar INSPECAO_EQUIPAMENTO de um EQUIPAMENTO); em ID_FUNCIONARIO (listar INSPECAO_EQUIPAMENTO de um FUNCIONARIO); índice composto em (ID_EQUIPAMENTO, TP_COMPONENTE, DT_INSPECAO) (última condição de cabos e estofados).</p>
+<h3 id="chamado_tecnico">CHAMADO_TECNICO</h3>
+<p><code>CHAMADO_TECNICO = @ID_CHAMADO_TECNICO + ID_EQUIPAMENTO + DT_ABERTURA + DS_DIAGNOSTICO_INICIAL + [TP_ABERTO | TP_EM_ATENDIMENTO | TP_CONCLUIDO] + (ID_ASSISTENCIA_TECNICA) + (ID_FUNCIONARIO) + (DT_VISITA) + (VL_CUSTO_SERVICO) + (IN_TESTE_CARGA_APROVADO) + (DT_LIBERACAO)</code></p>
+<p><strong>Leitura:</strong> @ID_CHAMADO_TECNICO é o identificador único (chave primária substituta, gerada pelo sistema). ID_EQUIPAMENTO referencia EQUIPAMENTO (obrigatório; gera). ID_ASSISTENCIA_TECNICA referencia ASSISTENCIA_TECNICA (opcional; atende). ID_FUNCIONARIO referencia FUNCIONARIO (opcional; autoriza liberação de). Os itens entre ( ) são opcionais. [TP_ABERTO | TP_EM_ATENDIMENTO | TP_CONCLUIDO] exige escolher um valor para TP_SITUACAO.</p>
+<table>
+<thead>
+<tr>
+<th>Atributo</th>
+<th>Tipo físico</th>
+<th>Obrigatório</th>
+<th>Restrições e valor padrão</th>
+<th>Significado e relevância</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>ID_CHAMADO_TECNICO</code></td>
+<td>integer</td>
+<td>Sim (PK)</td>
+<td>AUTO_INCREMENT; PRIMARY KEY</td>
+<td>Identificador do registro; não sofre operação matemática.</td>
+</tr>
+<tr>
+<td><code>ID_EQUIPAMENTO</code></td>
+<td>integer</td>
+<td>Sim (FK)</td>
+<td>FOREIGN KEY → EQUIPAMENTO(ID_EQUIPAMENTO); ON DELETE RESTRICT</td>
+<td>Referência a EQUIPAMENTO (gera).</td>
+</tr>
+<tr>
+<td><code>ID_ASSISTENCIA_TECNICA</code></td>
+<td>integer</td>
+<td>Não (FK)</td>
+<td>FOREIGN KEY → ASSISTENCIA_TECNICA(ID_ASSISTENCIA_TECNICA); ON DELETE RESTRICT</td>
+<td>Referência a ASSISTENCIA_TECNICA (atende).</td>
+</tr>
+<tr>
+<td><code>ID_FUNCIONARIO</code></td>
+<td>integer</td>
+<td>Não (FK)</td>
+<td>FOREIGN KEY → FUNCIONARIO(ID_FUNCIONARIO); ON DELETE RESTRICT</td>
+<td>Referência a FUNCIONARIO (autoriza liberação de).</td>
+</tr>
+<tr>
+<td><code>DT_ABERTURA</code></td>
+<td>DATETIME</td>
+<td>Sim</td>
+<td>DEFAULT CURRENT_TIMESTAMP</td>
+<td>Data e hora de abertura. Aberto logo após a interdição.</td>
+</tr>
+<tr>
+<td><code>DS_DIAGNOSTICO_INICIAL</code></td>
+<td>TEXT</td>
+<td>Sim</td>
+<td>—</td>
+<td>Diagnóstico inicial. Obrigatório.</td>
+</tr>
+<tr>
+<td><code>DT_VISITA</code></td>
+<td>DATETIME</td>
+<td>Não</td>
+<td>—</td>
+<td>Data da visita da assistência. Atendimento normalmente em até 48 horas.</td>
+</tr>
+<tr>
+<td><code>VL_CUSTO_SERVICO</code></td>
+<td>decimal(10,2)</td>
+<td>Não</td>
+<td>CHECK &gt;= 0</td>
+<td>Custo do serviço. Registrado após o reparo.</td>
+</tr>
+<tr>
+<td><code>IN_TESTE_CARGA_APROVADO</code></td>
+<td>BOOLEAN</td>
+<td>Não</td>
+<td>—</td>
+<td>Resultado do teste com o peso máximo da máquina. Só libera o equipamento se aprovado.</td>
+</tr>
+<tr>
+<td><code>DT_LIBERACAO</code></td>
+<td>DATETIME</td>
+<td>Não</td>
+<td>—</td>
+<td>Data e hora da liberação. Autorizada pela gerente (citada como coordenador no roteiro), só após teste aprovado.</td>
+</tr>
+<tr>
+<td><code>TP_SITUACAO</code></td>
+<td>varchar(14)</td>
+<td>Sim (escolha)</td>
+<td>CHECK IN (aberto, em_atendimento, concluido); DEFAULT 'aberto'</td>
+<td>Situação do chamado.</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Restrições da tabela:</strong> CHECK (DT_LIBERACAO IS NULL OR DT_LIBERACAO &gt;= DT_ABERTURA).</p>
+<p><strong>Índices:</strong> PK ID_CHAMADO_TECNICO (clusterizado); em ID_EQUIPAMENTO (listar CHAMADO_TECNICO de um EQUIPAMENTO); em ID_ASSISTENCIA_TECNICA (listar CHAMADO_TECNICO de um ASSISTENCIA_TECNICA); em ID_FUNCIONARIO (listar CHAMADO_TECNICO de um FUNCIONARIO); índice em TP_SITUACAO (chamados abertos).</p>
+<h3 id="peca_trocada">PECA_TROCADA</h3>
+<p><code>PECA_TROCADA = @ID_PECA_TROCADA + ID_CHAMADO_TECNICO + NM_PECA + QT_PECA + VL_CUSTO_UNITARIO + IN_ORIGINAL + (ID_FORNECEDOR)</code></p>
+<p><strong>Leitura:</strong> @ID_PECA_TROCADA é o identificador único (chave primária substituta, gerada pelo sistema). ID_CHAMADO_TECNICO referencia CHAMADO_TECNICO (obrigatório; usa). ID_FORNECEDOR referencia FORNECEDOR (opcional; vende peça). Os itens entre ( ) são opcionais.</p>
+<table>
+<thead>
+<tr>
+<th>Atributo</th>
+<th>Tipo físico</th>
+<th>Obrigatório</th>
+<th>Restrições e valor padrão</th>
+<th>Significado e relevância</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>ID_PECA_TROCADA</code></td>
+<td>integer</td>
+<td>Sim (PK)</td>
+<td>AUTO_INCREMENT; PRIMARY KEY</td>
+<td>Identificador do registro; não sofre operação matemática.</td>
+</tr>
+<tr>
+<td><code>ID_CHAMADO_TECNICO</code></td>
+<td>integer</td>
+<td>Sim (FK)</td>
+<td>FOREIGN KEY → CHAMADO_TECNICO(ID_CHAMADO_TECNICO); ON DELETE RESTRICT</td>
+<td>Referência a CHAMADO_TECNICO (usa).</td>
+</tr>
+<tr>
+<td><code>ID_FORNECEDOR</code></td>
+<td>integer</td>
+<td>Não (FK)</td>
+<td>FOREIGN KEY → FORNECEDOR(ID_FORNECEDOR); ON DELETE RESTRICT</td>
+<td>Referência a FORNECEDOR (vende peça).</td>
+</tr>
+<tr>
+<td><code>NM_PECA</code></td>
+<td>varchar(100)</td>
+<td>Sim</td>
+<td>—</td>
+<td>Nome da peça. Obrigatório.</td>
+</tr>
+<tr>
+<td><code>QT_PECA</code></td>
+<td>INT</td>
+<td>Sim</td>
+<td>CHECK &gt; 0</td>
+<td>Quantidade trocada. Maior que zero.</td>
+</tr>
+<tr>
+<td><code>VL_CUSTO_UNITARIO</code></td>
+<td>decimal(10,2)</td>
+<td>Sim</td>
+<td>CHECK &gt;= 0</td>
+<td>Custo unitário da peça. Maior ou igual a zero.</td>
+</tr>
+<tr>
+<td><code>IN_ORIGINAL</code></td>
+<td>BOOLEAN</td>
+<td>Sim</td>
+<td>DEFAULT TRUE</td>
+<td>Indica peça original do fabricante. A preferência é por peças originais.</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Índices:</strong> PK ID_PECA_TROCADA (clusterizado); em ID_CHAMADO_TECNICO (listar PECA_TROCADA de um CHAMADO_TECNICO); em ID_FORNECEDOR (listar PECA_TROCADA de um FORNECEDOR).</p>
+<h3 id="incidente_seguranca">INCIDENTE_SEGURANCA</h3>
+<p><code>INCIDENTE_SEGURANCA = @ID_INCIDENTE_SEGURANCA + ID_EQUIPAMENTO + DT_INCIDENTE + DS_INCIDENTE + [TP_LEVE | TP_MODERADA | TP_GRAVE] + (ID_ALUNO)</code></p>
+<p><strong>Leitura:</strong> @ID_INCIDENTE_SEGURANCA é o identificador único (chave primária substituta, gerada pelo sistema). ID_EQUIPAMENTO referencia EQUIPAMENTO (obrigatório; envolve). ID_ALUNO referencia ALUNO (opcional; sofre). Os itens entre ( ) são opcionais. [TP_LEVE | TP_MODERADA | TP_GRAVE] exige escolher um valor para TP_GRAVIDADE.</p>
+<table>
+<thead>
+<tr>
+<th>Atributo</th>
+<th>Tipo físico</th>
+<th>Obrigatório</th>
+<th>Restrições e valor padrão</th>
+<th>Significado e relevância</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>ID_INCIDENTE_SEGURANCA</code></td>
+<td>integer</td>
+<td>Sim (PK)</td>
+<td>AUTO_INCREMENT; PRIMARY KEY</td>
+<td>Identificador do registro; não sofre operação matemática.</td>
+</tr>
+<tr>
+<td><code>ID_EQUIPAMENTO</code></td>
+<td>integer</td>
+<td>Sim (FK)</td>
+<td>FOREIGN KEY → EQUIPAMENTO(ID_EQUIPAMENTO); ON DELETE RESTRICT</td>
+<td>Referência a EQUIPAMENTO (envolve).</td>
+</tr>
+<tr>
+<td><code>ID_ALUNO</code></td>
+<td>integer</td>
+<td>Não (FK)</td>
+<td>FOREIGN KEY → ALUNO(ID_ALUNO); ON DELETE RESTRICT</td>
+<td>Referência a ALUNO (sofre).</td>
+</tr>
+<tr>
+<td><code>DT_INCIDENTE</code></td>
+<td>DATETIME</td>
+<td>Sim</td>
+<td>DEFAULT CURRENT_TIMESTAMP</td>
+<td>Data e hora do incidente. Obrigatória.</td>
+</tr>
+<tr>
+<td><code>DS_INCIDENTE</code></td>
+<td>TEXT</td>
+<td>Sim</td>
+<td>—</td>
+<td>Descrição do ocorrido. Obrigatória; dado sensível se envolver saúde (LGPD).</td>
+</tr>
+<tr>
+<td><code>TP_GRAVIDADE</code></td>
+<td>varchar(8)</td>
+<td>Sim (escolha)</td>
+<td>CHECK IN (leve, moderada, grave)</td>
+<td>Gravidade.</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Índices:</strong> PK ID_INCIDENTE_SEGURANCA (clusterizado); em ID_EQUIPAMENTO (listar INCIDENTE_SEGURANCA de um EQUIPAMENTO); em ID_ALUNO (listar INCIDENTE_SEGURANCA de um ALUNO).</p>
+<h3 id="assistencia_tecnica">ASSISTENCIA_TECNICA</h3>
+<p><code>ASSISTENCIA_TECNICA = @ID_ASSISTENCIA_TECNICA + NM_EMPRESA + (NR_CONTATO) + (DT_INICIO_CONTRATO) + (DT_FIM_CONTRATO)</code></p>
+<p><strong>Leitura:</strong> @ID_ASSISTENCIA_TECNICA é o identificador único (chave primária substituta, gerada pelo sistema). Os itens entre ( ) são opcionais.</p>
+<table>
+<thead>
+<tr>
+<th>Atributo</th>
+<th>Tipo físico</th>
+<th>Obrigatório</th>
+<th>Restrições e valor padrão</th>
+<th>Significado e relevância</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>ID_ASSISTENCIA_TECNICA</code></td>
+<td>integer</td>
+<td>Sim (PK)</td>
+<td>AUTO_INCREMENT; PRIMARY KEY</td>
+<td>Identificador do registro; não sofre operação matemática.</td>
+</tr>
+<tr>
+<td><code>NM_EMPRESA</code></td>
+<td>varchar(120)</td>
+<td>Sim (único)</td>
+<td>UNIQUE</td>
+<td>Nome da empresa. Único.</td>
+</tr>
+<tr>
+<td><code>NR_CONTATO</code></td>
+<td>varchar(20)</td>
+<td>Não</td>
+<td>—</td>
+<td>Contato. Opcional.</td>
+</tr>
+<tr>
+<td><code>DT_INICIO_CONTRATO</code></td>
+<td>DATE</td>
+<td>Não</td>
+<td>—</td>
+<td>Início do contrato de manutenção. Opcional.</td>
+</tr>
+<tr>
+<td><code>DT_FIM_CONTRATO</code></td>
+<td>DATE</td>
+<td>Não</td>
+<td>—</td>
+<td>Fim do contrato de manutenção. Opcional.</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Índices:</strong> PK ID_ASSISTENCIA_TECNICA (clusterizado); único em NM_EMPRESA (evita duplicidade).</p>
+<h2 id="5-log-de-acesso-metadado-operacional">5. Log de acesso (metadado operacional)</h2>
+<p>Todas as tabelas ficam sob o mesmo mecanismo de auditoria do SGBD. No MySQL, o plugin <code>audit_log</code> grava em JSON no caminho definido pela variável <code>audit_log_file</code>; ele faz parte do MySQL Enterprise Edition. Na edição Community, a alternativa é o log geral (<code>general_log=ON</code>, <code>log_output=TABLE</code>), consultável em <code>mysql.general_log</code>. Retenção e rotação do log seguem política própria, independente da retenção dos dados de negócio. Não confundir com REGISTRO_ACESSO e PONTO, que são dados de negócio (entradas na catraca e jornada dos funcionários).</p>
+<h2 id="6-acesso-por-operacao-e-conformidade-com-a-lgpd-metadado-administrativo">6. Acesso por operação e conformidade com a LGPD (metadado administrativo)</h2>
+<p>Proposta preliminar, a validar com a academia. Hoje a recepção tem mais controle do sistema que a gerente e os professores; as permissões efetivas ficam em PERMISSAO e PERFIL_PERMISSAO.</p>
+<table>
+<thead>
+<tr>
+<th>Tabela</th>
+<th>LER</th>
+<th>INSERIR</th>
+<th>ATUALIZAR</th>
+<th>APAGAR</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>ALUNO</td>
+<td>Recepção, Professor, Gerente, Auditoria, Aluno (aplicativo)</td>
+<td>Recepção</td>
+<td>Recepção</td>
+<td>Nenhum papel — inativação e anonimização ao fim da retenção</td>
+</tr>
+<tr>
+<td>PLANO</td>
+<td>Recepção, Gerente, Aluno (aplicativo)</td>
+<td>Recepção</td>
+<td>Recepção</td>
+<td>Nenhum papel — histórico preservado</td>
+</tr>
+<tr>
+<td>PROMOCAO</td>
+<td>Recepção, Gerente, Aluno (aplicativo)</td>
+<td>Recepção</td>
+<td>Recepção</td>
+<td>Nenhum papel — histórico preservado</td>
+</tr>
+<tr>
+<td>CONTRATO</td>
+<td>Recepção, Gerente, Auditoria, Aluno (aplicativo)</td>
+<td>Recepção</td>
+<td>Recepção</td>
+<td>Nenhum papel — histórico preservado</td>
+</tr>
+<tr>
+<td>TRANCAMENTO</td>
+<td>Recepção, Gerente, Auditoria</td>
+<td>Recepção</td>
+<td>Recepção</td>
+<td>Nenhum papel — histórico preservado</td>
+</tr>
+<tr>
+<td>CANCELAMENTO</td>
+<td>Recepção, Gerente, Auditoria</td>
+<td>Recepção</td>
+<td>Nenhum papel — registro não se edita</td>
+<td>Nenhum papel — histórico preservado</td>
+</tr>
+<tr>
+<td>COBRANCA</td>
+<td>Recepção, Gerente, Auditoria</td>
+<td>Recepção, Sistema (catraca e rotinas)</td>
+<td>Recepção, Sistema (catraca e rotinas)</td>
+<td>Nenhum papel — histórico preservado</td>
+</tr>
+<tr>
+<td>PAGAMENTO</td>
+<td>Recepção, Gerente, Auditoria</td>
+<td>Recepção, Sistema (catraca e rotinas)</td>
+<td>Nenhum papel — registro não se edita</td>
+<td>Nenhum papel — histórico preservado</td>
+</tr>
+<tr>
+<td>NOTA_FISCAL</td>
+<td>Recepção, Gerente, Auditoria</td>
+<td>Recepção, Sistema (catraca e rotinas)</td>
+<td>Nenhum papel — registro não se edita</td>
+<td>Nenhum papel — histórico preservado</td>
+</tr>
+<tr>
+<td>REGISTRO_ACESSO</td>
+<td>Recepção, Gerente, Auditoria, Aluno (aplicativo)</td>
+<td>Sistema (catraca e rotinas), Gerente</td>
+<td>Nenhum papel — registro não se edita</td>
+<td>Nenhum papel — histórico preservado</td>
+</tr>
+<tr>
+<td>NOTIFICACAO</td>
+<td>Recepção, Gerente, Aluno (aplicativo)</td>
+<td>Sistema (catraca e rotinas)</td>
+<td>Nenhum papel — registro não se edita</td>
+<td>Nenhum papel — histórico preservado</td>
+</tr>
+<tr>
+<td>PERFIL</td>
+<td>Recepção, Gerente</td>
+<td>Recepção</td>
+<td>Recepção</td>
+<td>Nenhum papel — histórico preservado</td>
+</tr>
+<tr>
+<td>PERMISSAO</td>
+<td>Recepção, Gerente</td>
+<td>Recepção</td>
+<td>Recepção</td>
+<td>Nenhum papel — histórico preservado</td>
+</tr>
+<tr>
+<td>PERFIL_PERMISSAO</td>
+<td>Recepção, Gerente</td>
+<td>Recepção</td>
+<td>Recepção</td>
+<td>Recepção</td>
+</tr>
+<tr>
+<td>FUNCIONARIO</td>
+<td>Recepção, Gerente, Auditoria</td>
+<td>Recepção</td>
+<td>Recepção</td>
+<td>Nenhum papel — inativação no desligamento</td>
+</tr>
+<tr>
+<td>PROFESSOR</td>
+<td>Recepção, Gerente, Auditoria</td>
+<td>Recepção</td>
+<td>Recepção</td>
+<td>Nenhum papel — histórico preservado</td>
+</tr>
+<tr>
+<td>ESCALA_TRABALHO</td>
+<td>Recepção, Gerente, Professor</td>
+<td>Recepção</td>
+<td>Recepção</td>
+<td>Recepção</td>
+</tr>
+<tr>
+<td>PONTO</td>
+<td>Recepção, Gerente, Auditoria</td>
+<td>Sistema (catraca e rotinas)</td>
+<td>Nenhum papel — registro não se edita</td>
+<td>Nenhum papel — histórico preservado</td>
+</tr>
+<tr>
+<td>AVALIACAO_FISICA</td>
+<td>Professor, Aluno (aplicativo), Auditoria</td>
+<td>Professor</td>
+<td>Professor</td>
+<td>Nenhum papel — histórico preservado</td>
+</tr>
+<tr>
+<td>FICHA_TREINO</td>
+<td>Professor, Aluno (aplicativo)</td>
+<td>Professor</td>
+<td>Professor</td>
+<td>Nenhum papel — histórico preservado</td>
+</tr>
+<tr>
+<td>TREINO</td>
+<td>Professor, Aluno (aplicativo)</td>
+<td>Professor</td>
+<td>Professor</td>
+<td>Nenhum papel — histórico preservado</td>
+</tr>
+<tr>
+<td>EXERCICIO</td>
+<td>Professor, Aluno (aplicativo)</td>
+<td>Professor</td>
+<td>Professor</td>
+<td>Professor</td>
+</tr>
+<tr>
+<td>TREINO_EXERCICIO</td>
+<td>Professor, Aluno (aplicativo)</td>
+<td>Professor</td>
+<td>Professor</td>
+<td>Professor</td>
+</tr>
+<tr>
+<td>REGISTRO_CARGA</td>
+<td>Professor, Aluno (aplicativo)</td>
+<td>Professor</td>
+<td>Nenhum papel — registro não se edita</td>
+<td>Nenhum papel — histórico preservado</td>
+</tr>
+<tr>
+<td>MODALIDADE</td>
+<td>Recepção, Professor, Aluno (aplicativo)</td>
+<td>Recepção</td>
+<td>Recepção</td>
+<td>Nenhum papel — histórico preservado</td>
+</tr>
+<tr>
+<td>AULA_COLETIVA</td>
+<td>Recepção, Professor, Aluno (aplicativo)</td>
+<td>Recepção</td>
+<td>Recepção</td>
+<td>Nenhum papel — histórico preservado</td>
+</tr>
+<tr>
+<td>AGENDAMENTO_AULA</td>
+<td>Recepção, Professor, Aluno (aplicativo)</td>
+<td>Aluno (aplicativo), Recepção</td>
+<td>Aluno (aplicativo), Recepção</td>
+<td>Nenhum papel — histórico preservado</td>
+</tr>
+<tr>
+<td>PRODUTO</td>
+<td>Recepção, Gerente</td>
+<td>Recepção</td>
+<td>Recepção</td>
+<td>Nenhum papel — histórico preservado</td>
+</tr>
+<tr>
+<td>LOTE_PRODUTO</td>
+<td>Recepção, Gerente</td>
+<td>Recepção</td>
+<td>Recepção</td>
+<td>Nenhum papel — histórico preservado</td>
+</tr>
+<tr>
+<td>COMPRA</td>
+<td>Recepção, Gerente</td>
+<td>Recepção</td>
+<td>Recepção</td>
+<td>Nenhum papel — histórico preservado</td>
+</tr>
+<tr>
+<td>FORNECEDOR</td>
+<td>Recepção, Gerente</td>
+<td>Recepção</td>
+<td>Recepção</td>
+<td>Nenhum papel — histórico preservado</td>
+</tr>
+<tr>
+<td>VENDA</td>
+<td>Recepção, Gerente, Auditoria</td>
+<td>Recepção</td>
+<td>Nenhum papel — registro não se edita</td>
+<td>Nenhum papel — histórico preservado</td>
+</tr>
+<tr>
+<td>ITEM_VENDA</td>
+<td>Recepção, Gerente, Auditoria</td>
+<td>Recepção</td>
+<td>Nenhum papel — registro não se edita</td>
+<td>Nenhum papel — histórico preservado</td>
+</tr>
+<tr>
+<td>EQUIPAMENTO</td>
+<td>Recepção, Gerente, Professor</td>
+<td>Recepção</td>
+<td>Recepção</td>
+<td>Nenhum papel — histórico preservado</td>
+</tr>
+<tr>
+<td>ROTINA_MANUTENCAO</td>
+<td>Recepção, Gerente</td>
+<td>Recepção</td>
+<td>Recepção</td>
+<td>Nenhum papel — histórico preservado</td>
+</tr>
+<tr>
+<td>EXECUCAO_MANUTENCAO</td>
+<td>Recepção, Gerente, Auditoria</td>
+<td>Recepção</td>
+<td>Recepção</td>
+<td>Nenhum papel — histórico preservado</td>
+</tr>
+<tr>
+<td>INSPECAO_EQUIPAMENTO</td>
+<td>Recepção, Gerente, Professor</td>
+<td>Professor, Recepção</td>
+<td>Nenhum papel — registro não se edita</td>
+<td>Nenhum papel — histórico preservado</td>
+</tr>
+<tr>
+<td>CHAMADO_TECNICO</td>
+<td>Recepção, Gerente, Auditoria</td>
+<td>Recepção</td>
+<td>Recepção</td>
+<td>Nenhum papel — histórico preservado</td>
+</tr>
+<tr>
+<td>PECA_TROCADA</td>
+<td>Recepção, Gerente, Auditoria</td>
+<td>Recepção</td>
+<td>Recepção</td>
+<td>Nenhum papel — histórico preservado</td>
+</tr>
+<tr>
+<td>INCIDENTE_SEGURANCA</td>
+<td>Recepção, Gerente, Auditoria</td>
+<td>Recepção</td>
+<td>Recepção</td>
+<td>Nenhum papel — histórico preservado</td>
+</tr>
+<tr>
+<td>ASSISTENCIA_TECNICA</td>
+<td>Recepção, Gerente</td>
+<td>Recepção</td>
+<td>Recepção</td>
+<td>Nenhum papel — histórico preservado</td>
+</tr>
+</tbody>
+</table>
+<p>ALUNO, FUNCIONARIO, AVALIACAO_FISICA, INCIDENTE_SEGURANCA carregam dados sensíveis (biometria facial, restrição pessoal e dados de saúde; LGPD art. 5º, II). Dados de menores (data de nascimento e telefone do responsável) exigem cuidado adicional. A base legal de cada tratamento, o consentimento (incluindo o dos responsáveis) e o prazo de retenção devem ser definidos com a academia. O acesso fica restrito aos papéis envolvidos mais a auditoria, e toda consulta fica no log de acesso (seção 5). Encerrado o prazo de retenção, os dados são anonimizados, nunca apagados fisicamente. As senhas de ALUNO e de FUNCIONARIO são guardadas em hash.</p></body></html>
